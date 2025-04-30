@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="auth-logo">
+    <h3>{{type}}</h3>
+    <span></span>
+    <p>{{paragraphe}}</p>
+    <a href="/{{btnswitch}}">{{btnTitre}}</a>
+  </div>
+  <div class="auth-form">
+    <h2>Brique<span>S</span>wap</h2>
+    <span></span>
+    <form id="form-auth" novalidate>
+      <input
+        type="text"
+        placeholder="Nom"
+        id="input-nom"
+        required
+        minlength="3"
+        maxlength="20"
+        {{#unless inscription}}hidden{{/unless}}
+      />
+      <div id="erreur-nom"></div>
+      
+      <input
+        type="text"
+        placeholder="Prenom"
+        id="input-prenom"
+        required
+        minlength="3"
+        maxlength="20"
+        {{#unless inscription}}hidden{{/unless}}
+      />
+      <div id="erreur-prenom"></div>
+
+      <input
+        type="email"
+        placeholder="Email"
+        id="input-courriel"
+        required
+        minlength="6"
+        maxlength="30"
+      />
+      <div id="erreur-courriel"></div>
+
+      <input
+        type="password"
+        placeholder="Mot De Passe"
+        id="input-motdepasse"
+        required
+        minlength="6"
+        maxlength="30"
+      />
+      <div id="erreur-mot-de-passe"></div>
+
+      <div id="btn-connecter">
+        <input type="submit" value="{{btnType}}"/>
+      </div>
+
+      <div id="erreur-auth"></div>
+    </form>
+  </div>
+</div>

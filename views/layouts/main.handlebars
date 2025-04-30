@@ -1,0 +1,43 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{titre}}</title>
+  
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+    />
+  <link rel="stylesheet" href="/css/briques.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="/css/footer.css">
+
+
+  {{#each scripts}}
+  <script type="module" src="{{this}}"></script>
+  {{/each}}
+
+  {{#each styles}}
+  <link rel="stylesheet" href="{{this}}" />
+  {{/each}}
+
+</head>
+
+<body>
+    <header>
+      {{>header}}
+    </header>
+
+    <main class="main">
+      {{{body}}}
+    </main>
+
+    <footer>
+      {{>footer}}
+    </footer>
+
+
+</body>
+
+</html>

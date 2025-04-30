@@ -1,0 +1,41 @@
+<section id="creer-{{type}}">
+  <form id="form-creer-{{type}}" novalidate>
+    <label  for="nom-echange">{{paragraphe}} </label>
+    <div id="input-form">
+      <div {{#unless creerEchange}}hidden{{/unless}}>
+        <input type="text" id="nom-echange" placeholder="Nom Echange" name="nom-echange" />
+        <p class="erreur-nom-echange"></p>
+      </div>
+      <div>
+        <button type="submit" id="creer{{type}}Btn">{{btnType}}</button>
+        <p class="erreur-quantite"></p>
+      </div>
+    </div>
+    <h3>Ajouter des Briques</h3>
+    <div id="briques-selection">
+      {{#each dbBriques}}
+        <div class="brique-item">
+          <img
+            src="assets/{{this.image}}"
+            alt="{{this.nom_brique}}"
+            class="brique-image"
+          />
+          <label>{{this.nom_brique}} ({{this.couleur}})</label>
+          <label>Prix: {{this.valeur}} $</label>
+          <input
+            type="number"
+            min="0"
+            max="200"
+            required
+            placeholder="Quantite"
+            data-id="{{this.id_brique}}"
+            style="width: 90px;"
+            value="0"
+          />
+        </div>
+      {{/each}}
+
+    </div>
+
+  </form>
+</section>

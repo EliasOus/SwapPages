@@ -1,0 +1,32 @@
+<section>
+  <div id="nom_utilisateur">
+    <h2 id="compte-utilisateur">{{utilisateur.nom}}  {{utilisateur.prenom}}</h2>
+  </div>
+  <h2 class="echange-compte">Les échanges de ce compte </h2>
+  <div id="liste-echanges">
+    {{#each dbUtilisateur}}
+      <div class="echange-item" data-index="{{this.id_echange}}">
+        <ul>
+          <li>
+            <h4 id="nom-echange">{{this.nom_echange}}</h4>
+            <div class="btn-details-link">
+              <a
+                href="/echange?id_echange={{this.id_echange}}"
+                class="Details-link"
+              >détails</a>
+            </div>
+          </li>
+        </ul>
+
+        <button
+          type="button"
+          class="bouton-supprimer"
+          data-id-echange="{{this.id_echange}}"
+        >
+          <i class="bi bi-trash-fill"></i>
+        </button>
+      </div>
+    {{/each}}
+
+  </div>
+</section>

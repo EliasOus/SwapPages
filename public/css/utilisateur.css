@@ -1,0 +1,83 @@
+/* style pour la page d'utilisateur */
+.bouton-supprimer {
+  /* background: red; */
+  background: transparent;
+  /* border: none;
+      color: white; */
+  cursor: pointer;
+  font-size: 10px;
+  border: red solid;
+  border-radius: 8px;
+  border-width: 0px;
+  text-align: center;
+}
+.bouton-supprimer i {
+  font-size: 35px;
+  color: red;
+}
+/* style pour la page d'utilisateur */
+#compte-utilisateur {
+  font-size: 20px;
+  margin-right: 180px;
+  font-family: "Gill Sans";
+  font-weight: 100;
+  font-weight: bold;
+  text-decoration: underline;
+  text-align: start;
+  text-transform: capitalize;
+}
+
+/* style pour la page d'utilisateur */
+.echange-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  margin-right: 40px;
+  padding: 10px;
+  width: 100%;
+  border-bottom: 0.5px solid #333;
+  margin-top: 25px;
+}
+
+/* style pour la page d'utilisateur */
+#nom-echange {
+  white-space: normal;
+  max-width: 500px;
+  text-transform: capitalize;
+  margin: 0 0 30 0;
+}
+
+/* style pour la page d'utilisateur */
+.echange-compte {
+  margin-top: 25px;
+  text-transform: uppercase;
+}
+
+/* style pour la page d'utilisateur */
+.main-utilisateur {
+  margin: 100px auto;
+  padding: 0 20px 20px;
+  width: 80%;
+  box-sizing: content-box;
+  border-radius: 30px;
+  box-shadow: 0px 0px 20px 0.5px #54b3b1;
+  overflow: hidden;
+}
+
+.btn-details-link a {
+  width: auto;
+  height: 40px;
+  padding: 0 20px;
+  display: inline-block;
+  align-content: center;
+  border-radius: 10px;
+  text-decoration: none;
+  color: black;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #54b3b1;
+  box-shadow: 0px 5px 6px 0px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease;
+}

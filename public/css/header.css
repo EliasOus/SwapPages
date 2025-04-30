@@ -1,0 +1,74 @@
+/* style pour le header de toute la page*/
+header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* style pour le logo de site web*/
+header h1 {
+  font-size: 24px;
+}
+/* style pour le logo de site web */
+header h1 span {
+  color: #54b3b1;
+  font-size: 35px;
+}
+/* style pour le navigation*/
+nav {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  gap: 50px;
+  align-items: center;
+  margin: 10px 0;
+  text-align: center;
+  border-radius: 60px;
+}
+
+/*style pour le navigation */
+nav a,
+nav input {
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.2rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/*style pour la div qui contient le titre et le bouton utilisateur dans le header*/
+.contenaire {
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* style pour le logo utilisateur dans le header */
+#utilisateur a {
+  color: #54b3b1;
+  text-decoration: none;
+  font-size: 18px;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  align-items: center;
+}
+/* style pour le logo utilisateur de header */
+#utilisateur i {
+  font-size: 45px;
+  color: white;
+}
+/*style pour le bouton utilisateur dans le header */
+#utilisateur button {
+  background-color: white;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+/* style pour le lien du bouton utilisateur dans le header*/
+#utilisateur button h3 a {
+  text-decoration: none;
+  display: inline;
+}

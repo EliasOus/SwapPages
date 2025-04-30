@@ -1,0 +1,93 @@
+/* style pour la page de creer echange */
+#form-creer-echange label,
+#form-creer-proposition label {
+  display: block;
+  margin: 10px 0 5px;
+}
+/* style pour la page de creer echange qui concerne le input */
+#form-creer-echange input[type="text"],
+#form-creer-proposition input[type="text"] {
+  width: 500px;
+  height: 40px;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+#form-creer-echange p,
+#form-creer-proposition p {
+  width: 500px;
+  height: 40px;
+  font-size: 10px;
+}
+
+/* style pour la page de creer echange qui concerne le bouton creer echange*/
+#form-creer-echange button,
+#form-creer-proposition button {
+  height: 40px;
+  padding: 10px 15px;
+  background-color: #28a745;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.8rem;
+  box-shadow: 3px 4px 6px 2px #c8c8c8;
+}
+
+/* style pour la page de creer echange qui concerne le bouton creer echange*/
+#form-creer-echange button:hover,
+#form-creer-proposition button:hover {
+  background-color: #218838;
+}
+
+/* style pour la page creerechange  */
+#input-form {
+  display: flex;
+  gap: 20px;
+}
+
+#briques-selection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/*style pour la page voir details de l'echange et cree echange*/
+.brique-item {
+  width: 15%;
+  height: 280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  background-color: #f9f9f9;
+  box-shadow: 8px 11px 12px 1px #c8c8c8;
+}
+
+/*style pour la page voir details de l'echange et creer echange*/
+.brique-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/*style pour la page voir details de l'echange et cree echange*/
+.brique-item label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/*style pour la page voir details de l'echange*/
+.brique-item input {
+  width: 50px;
+  padding: 5px;
+}

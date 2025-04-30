@@ -1,0 +1,121 @@
+.container {
+  width: 80%;
+  height: 80%;
+  margin: auto 0;
+  display: flex;
+  flex-direction: row;
+  border-radius: 30px;
+  box-shadow: 0px 0px 60px 6px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+.auth-logo {
+  width: 50%;
+  height: 100%;
+  padding: 30px 0px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  gap: 35px;
+  background-image: url("../assets/imgs/lego3.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.auth-logo h3 {
+  text-transform: capitalize;
+  font-weight: bold;
+}
+.auth-logo span {
+  width: 90%;
+  height: 1px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+}
+.auth-logo p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: capitalize;
+  width: 80%;
+  text-align: center;
+}
+.auth-logo a {
+  width: 150px;
+  height: 50px;
+  text-align: center;
+  color: black;
+  line-height: 50px;
+  font-size: 0.8em;
+  font-weight: 900;
+  text-decoration: none;
+  background-color: #54b3b1;
+  border-radius: 50px;
+  box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.16);
+  transition: transform 0.3s ease;
+}
+.auth-form {
+  width: 50%;
+  height: 100%;
+  background-color: #111;
+  padding: 25px 0px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.auth-form h2 {
+  color: white;
+}
+
+.auth-form span {
+  width: 80%;
+  height: 1px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.auth-form h2 span {
+  color: #54b3b1;
+  font-size: 1.4em;
+  text-decoration: none;
+}
+
+.auth-form form {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 60px;
+  overflow: hidden;
+}
+.auth-form input {
+  width: 80%;
+  height: 35px;
+  border-radius: 5px;
+  padding: 0 10px;
+  border: 0;
+}
+#btn-connecter input {
+  width: 100%;
+  font-weight: bold;
+  text-transform: capitalize;
+  background-color: #54b3b1;
+  box-shadow: 4px 3px 11px 6px rgba(0, 255, 204, 0.16);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#btn-connecter input:hover,
+.auth-logo a:hover{
+    transform: scale(1.02);
+}
+
+.erreur-auth {
+  color: rgb(200, 0, 0);
+  font-size: .6em;
+  font-weight: bold;
+  text-align: center;
+
+}

@@ -1,0 +1,53 @@
+/* style pour la page d'accueil */
+#echanges-list {
+  list-style-type: none;
+}
+
+/* style pour la page d'accueil */
+a h3 {
+  font-size: 15px;
+  text-align: end;
+  display: inline;
+}
+
+/* style pour la page d'accueil */
+#nom-echange {
+  white-space: normal;
+  max-width: 500px;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+/* style pour la page d'accueil*/
+.text-echange {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  border: 0px !important;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.btn-details-link a {
+  width: auto;
+  height: 40px;
+  padding: 0 20px;
+  display: inline-block;
+  align-content: center;
+  border-radius: 10px;
+  text-decoration: none;
+  color: black;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #54b3b1;
+  box-shadow: 0px 5px 6px 0px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease;
+}
+
+.echnage-item {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid black;
+  margin: 10px auto;
+  padding: 10px 0px;
+}

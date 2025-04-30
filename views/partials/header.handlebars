@@ -1,0 +1,29 @@
+<div id="contenaire-header">
+  <div class="contenaire">
+    <div id="header">
+      <h1>Brique<span>S</span>wap</h1>
+    </div>
+  </div>
+  <nav>
+    <a href="/">Accueil</a>
+    <a href="/apropos">A propos</a>
+    {{#if utilisateur}}
+      <a href="/creerEchange">Créer un Échange</a>
+      <form method="post" action="/api/deconnexion">
+        <input type="submit" value="Déconnexion" />
+      </form>
+    {{/if}}
+  </nav>
+  <div id="utilisateur" data-index="{{utilisateur.id_utilisateur}}">
+    {{#unless utilisateur}}
+      <a href="/connexion">Se Connecter</a>
+    {{/unless}}
+    {{#if utilisateur}}
+      <a href="/utilisateur">
+        <i class="bi bi-person-circle"></i>
+        <h5>{{utilisateur.nom}} {{utilisateur.prenom}}</h5>
+      </a>
+    {{/if}}
+  </div>
+
+</div>

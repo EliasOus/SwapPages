@@ -1,0 +1,58 @@
+<section id="details-echange">
+  <div id="echange-details">
+    <div id="{{type}}">
+      <h2>Nom de l'echange : <span>{{dbInfo.nom_echange}}</span></h2>
+      <h2 {{#if echange}}hidden{{/if}}>Proposer Par : <span>{{dbInfo.nom_utilisateur_proposition}}  {{dbInfo.prenom_utilisateur_proposition}}</span></h2>
+    </div>
+    <div id="brique-items">
+      {{#each dbEchangeProposition}}
+        <div class="brique-item">
+          <img
+            src="/assets/{{this.image}}"
+            alt="{{this.nom_brique}}"
+            class="brique-image"
+          />
+          <label>Nom : {{this.nom_brique}}</label>
+          <label>Couleur: {{this.couleur}}</label>
+          <label>Quantite : {{this.quantite}}</label>
+          <label>Prix : {{this.prix_brique}} $</label>
+        </div>
+      {{/each}}
+
+    </div>
+
+    <div id="prix-total">
+      <h2>Prix Total : {{prixTotal}} $</h2>
+    </div>
+
+    {{#if ISeligiblebtn}}
+      <div id="btn-creer-proposition" {{#unless echange}}hidden{{/unless}}>
+          <button data-id-echange="{{id_echange}}" id="btnCreerProposition">Créer une Proposition</button>
+      </div>
+    {{/if}}
+  </div>
+
+  {{#if ISeligibleliste}}
+    <div id="liste-proposition">
+      <span></span>
+      {{#each dbProposition}}
+        <div class="proposition-item" data-index="{{this.id_proposition}}">
+          <ul>
+            <li>
+              <h4 class="nom-proposition">proposition : {{id_echange}} | {{this.id_proposition}}</h4>
+            </li>
+            <li><h4>Creer Par : {{this.nom_utilisateur_proposition}}  {{this.prenom_utilisateur_proposition}}</h4></li>
+            <li>
+              <div class="btn-details-link">
+                <a
+                  href="/proposition?id_proposition={{this.id_proposition}}"
+                  class="Details-link"
+                >détails</a>
+              </div></li>
+          </ul>
+        </div>
+      {{/each}}
+    </div>
+  {{/if}}
+
+</section>
