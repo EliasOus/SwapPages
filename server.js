@@ -1,8 +1,8 @@
 // Charger les configurations du projet
 import "dotenv/config";
 
-import https from 'https';
-import { readFile } from 'fs/promises';
+import https from "https";
+import { readFile } from "fs/promises";
 import express, { json, request, response } from "express";
 import helmet from "helmet";
 import cors from "cors";
@@ -35,6 +35,7 @@ import {
   validerMotDePasse,
   validerNomPrenom,
   validerAcces,
+  validerNomAuteurTitre,
 } from "./validationServer.js";
 
 import {
@@ -44,6 +45,7 @@ import {
 } from "./model/utilisateur.js";
 
 import "./authentification.js";
+import { title } from "process";
 
 // Créer le serveur
 const app = express();
@@ -141,21 +143,24 @@ app.get("/", async (request, response) => {
 /**
  * Page handlebars utilisateur
  */
-app.get("/utilisateur", utilisateurConnecteClient, async (request, response) => {
-  
-  const id_utilisateur = request.user.id_utilisateur;
-  const dbUtilisateur = await getEchangeUtilisateur(id_utilisateur);
+app.get(
+  "/utilisateur",
+  utilisateurConnecteClient,
+  async (request, response) => {
+    const id_utilisateur = request.user.id_utilisateur;
+    const dbUtilisateur = await getEchangeUtilisateur(id_utilisateur);
 
-  response.render("utilisateur", {
-    titre: "Utilisateur",
-    styles: ["/css/utilisateur.css"],
-    scripts: ["/js/utilisateur.js"],
-    dbUtilisateur: dbUtilisateur,
-    
-    //variable pour gerer les utilisateur
-    utilisateur: request.user,
-  });
-});
+    response.render("utilisateur", {
+      titre: "Utilisateur",
+      styles: ["/css/utilisateur.css"],
+      scripts: ["/js/utilisateur.js"],
+      dbUtilisateur: dbUtilisateur,
+
+      //variable pour gerer les utilisateur
+      utilisateur: request.user,
+    });
+  }
+);
 
 /**
  * Page handlebars a propos
@@ -174,7 +179,6 @@ app.get("/apropos", (request, response) => {
  * handlebars pour page de connexion
  */
 app.get("/connexion", utilisateurPasConnecteClient, (request, response) => {
-  
   response.render("authentification", {
     titre: "Brique | Connexion",
     styles: ["/css/authentification.css"],
@@ -195,7 +199,6 @@ app.get("/connexion", utilisateurPasConnecteClient, (request, response) => {
  * handlebars pour page d'inscription
  */
 app.get("/inscription", utilisateurPasConnecteClient, (request, response) => {
-
   response.render("authentification", {
     titre: "Brique | Inscription",
     styles: ["/css/authentification.css"],
@@ -217,98 +220,108 @@ app.get("/inscription", utilisateurPasConnecteClient, (request, response) => {
 /**
  * handlebars pour la page creer proposition
  */
-app.get("/creerProposition", utilisateurConnecteClient, async (request, response) => {
-  
-  const dbBriques = await getBriques();
+app.get(
+  "/creerProposition",
+  utilisateurConnecteClient,
+  async (request, response) => {
+    const dbBriques = await getBriques();
 
-  response.render("creerEchangeProposition", {
-    titre: "Brique | Creer Proposition",
-    styles: ["/css/creerEchangeProposition.css"],
-    scripts: [
-      "/js/creerEchangeProposition.js",
-      "/js/validationCreerEchange.js",
-      "/js/afficherMessageErreur.js",
-    ],
-    dbBriques: dbBriques,
-    type: "proposition",
-    btnType: "Creer Proposition",
-    paragraphe: "Creer Proposition : ",
+    response.render("creerEchangeProposition", {
+      titre: "Brique | Creer Proposition",
+      styles: ["/css/creerEchangeProposition.css"],
+      scripts: [
+        "/js/creerEchangeProposition.js",
+        "/js/validationCreerEchange.js",
+        "/js/afficherMessageErreur.js",
+      ],
+      dbBriques: dbBriques,
+      type: "proposition",
+      btnType: "Creer Proposition",
+      paragraphe: "Creer Proposition : ",
 
-    //variable pour gerer les utilisateur
-    utilisateur: request.user,
-  });
-});
+      //variable pour gerer les utilisateur
+      utilisateur: request.user,
+    });
+  }
+);
 
 /**
  * Page handlebars creer echange
  */
-app.get("/creerEchange", utilisateurConnecteClient, async (request, response) => {
-  
-  const dbBriques = await getBriques();
+app.get(
+  "/creerEchange",
+  utilisateurConnecteClient,
+  async (request, response) => {
+    const dbBriques = await getBriques();
 
-  response.render("creerEchangeProposition", {
-    titre: "Brique | Creer Echange",
-    styles: ["/css/creerEchangeProposition.css"],
-    scripts: [
-      "/js/creerEchangeProposition.js",
-      "/js/validationCreerEchange.js",
-      "/js/afficherMessageErreur.js",
-    ],
-    dbBriques: dbBriques,
-    type: "echange",
-    btnType: "Creer Echange",
-    creerEchange: true,
-    paragraphe: "Creer l'Echange : ",
+    response.render("creerEchangeProposition", {
+      titre: "Brique | Creer Echange",
+      styles: ["/css/creerEchangeProposition.css"],
+      scripts: [
+        "/js/creerEchangeProposition.js",
+        "/js/validationCreerEchange.js",
+        "/js/afficherMessageErreur.js",
+      ],
+      dbBriques: dbBriques,
+      type: "echange",
+      btnType: "Creer Echange",
+      creerEchange: true,
+      paragraphe: "Creer l'Echange : ",
 
-    //variable pour gerer les utilisateur
-    utilisateur: request.user,
-  });
-});
+      //variable pour gerer les utilisateur
+      utilisateur: request.user,
+    });
+  }
+);
 
 /**
  * Page handlebars pour la page proposition
  * la page pour afficher les briques pour chaque proposition
  */
-app.get("/proposition", utilisateurConnecteClient, async (request, response) => {
-  
-  if (validerIdProposition(parseInt(request.query.id_proposition))) {
-    const dbProposition = await getProposition(request.query.id_proposition);
+app.get(
+  "/proposition",
+  utilisateurConnecteClient,
+  async (request, response) => {
+    if (validerIdProposition(parseInt(request.query.id_proposition))) {
+      const dbProposition = await getProposition(request.query.id_proposition);
 
-    if (dbProposition.length > 0) {
-      // Vérification si l'utilisateur qui a créé l'échange est le même que celui actuellement connecté.
-      if (
-        dbProposition[0].id_utilisateur_echange !== request.user.id_utilisateur
-      ) {
-        response.redirect("/");
-        return;
+      if (dbProposition.length > 0) {
+        // Vérification si l'utilisateur qui a créé l'échange est le même que celui actuellement connecté.
+        if (
+          dbProposition[0].id_utilisateur_echange !==
+          request.user.id_utilisateur
+        ) {
+          response.redirect("/");
+          return;
+        }
+
+        //calculer le prix total des briques
+        const prixTotal = calculePrixTotal(dbProposition);
+
+        response.render("echangeProposition", {
+          titre: "Brique | Proposition",
+          styles: ["/css/echange.css"],
+          // scripts: ["/js/echange.js"],
+          dbEchangeProposition: dbProposition,
+          prixTotal: prixTotal,
+
+          // Récupère le premier proposition et le stocke dans dbNomEchange.
+          // Ensuite, on peut accéder à le nom echange à travers dbNomEchange.nom_echange.
+          // et on peut acceder aussi à les information de l'utilisateur qui a creer proposition
+          dbInfo: dbProposition[0],
+          type: "proposition",
+
+          //variable pour gerer les utilisateur
+          utilisateur: request.user,
+        });
+      } else {
+        response.status(404).end();
       }
-
-      //calculer le prix total des briques
-      const prixTotal = calculePrixTotal(dbProposition);
-
-      response.render("echangeProposition", {
-        titre: "Brique | Proposition",
-        styles: ["/css/echange.css"],
-        // scripts: ["/js/echange.js"],
-        dbEchangeProposition: dbProposition,
-        prixTotal: prixTotal,
-
-        // Récupère le premier proposition et le stocke dans dbNomEchange.
-        // Ensuite, on peut accéder à le nom echange à travers dbNomEchange.nom_echange.
-        // et on peut acceder aussi à les information de l'utilisateur qui a creer proposition
-        dbInfo: dbProposition[0],
-        type: "proposition",
-
-        //variable pour gerer les utilisateur
-        utilisateur: request.user,
-      });
     } else {
-      response.status(404).end();
+      response.status(400).end();
     }
-  } else {
-    response.status(400).end();
   }
-});
+);
 
 //Page handlebars Echange
 app.get("/echange", async (request, response) => {
@@ -559,19 +572,59 @@ app.post("/api/deconnexion", utilisateurConnecte, (request, response, next) => {
   });
 });
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Api pour recuperer tout les livre dans openlibrary
+ */
+
+app.get("/api/livres", async (request, response) => {
+  try {
+    // if (validerNomAuteurTitre(request.query.nom_auteur)) {
+    const titre = request.query.titre;
+
+    const res = await fetch(
+      `https://openlibrary.org/search.json?title=${encodeURIComponent(titre)}`
+    );
+
+    if (!res.ok) {
+      throw new Error(`Erreur HTTP ${res.status}`);
+    }
+
+    const datas = await res.json();
+
+    const livres = datas.docs.map((livre) => ({
+      titre: livre.title,
+      auteur: livre.author_name ? livre.author_name.join(", ") : "Inconnu",
+      cover_url: livre.cover_i
+        ? `https://covers.openlibrary.org/b/id/${livre.cover_i}-L.jpg`
+        : null,
+      langue: livre.language,
+    }));
+
+    response.status(200).json(livres);
+    // } else {
+    //   response.status(400).end();
+    // }
+  } catch (error) {
+    console.error(error);
+    response
+      .status(500)
+      .json({ message: "Erreur lors de la récupération des livres." });
+  }
+});
+
 // Démarrer le serveur
-if(process.env.NODE_ENV === 'production') {
-  console.log('Serveur démarré:');
-  console.log('http://localhost:' + process.env.PORT);
+if (process.env.NODE_ENV === "production") {
+  console.log("Serveur démarré:");
+  console.log("http://localhost:" + process.env.PORT);
   app.listen(process.env.PORT);
-}
-else {
+} else {
   const credentials = {
-      cert: await readFile('./security/localhost.cert'),
-      key: await readFile('./security/localhost.key')
+    cert: await readFile("./security/localhost.cert"),
+    key: await readFile("./security/localhost.key"),
   };
 
-  console.log('Serveur démarré:');
-  console.log('https://localhost:' + process.env.PORT);
+  console.log("Serveur démarré:");
+  console.log("https://localhost:" + process.env.PORT);
   https.createServer(credentials, app).listen(process.env.PORT);
 }

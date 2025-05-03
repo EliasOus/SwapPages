@@ -166,3 +166,20 @@ export function validerAcces(acces) {
     return false;
   }
 }
+
+/**
+ * function pour valide le nom author ou titre de livre cote serveur
+ * @param {string} nom_auteur_titre
+ * @returns
+ */
+export function validerNomAuteurTitre(nom_auteur_titre) {
+  if (
+    String(nom_auteur).length >= 3 &&
+    nom_auteur &&
+    String(nom_auteur).length <= 20
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}

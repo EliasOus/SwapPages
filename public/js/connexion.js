@@ -12,7 +12,7 @@ const erreurAuthentification = document.getElementById("erreur-auth");
 
 /**
  * function  gère la soumission du formulaire de connexion
- * @param {event} event 
+ * @param {event} event
  */
 async function connexionServer(event) {
   event.preventDefault();

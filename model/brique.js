@@ -279,3 +279,20 @@ export async function creePropositionBrique(
   }
   return idProposition;
 }
+
+
+//////////////////////////////////////////////////////////
+
+// export async function getLivres(nom_auteur) {
+//   const 
+  
+// }
+
+// export async function getEchanges() {
+//   const echange = await connexion.all(`
+//     SELECT e.id_echange, u.id_utilisateur, e.nom_echange, u.nom AS nom_utilisateur, u.prenom AS prenom_utilisateur
+//     FROM echange e
+//     JOIN utilisateur u ON e.id_utilisateur = u.id_utilisateur;
+//     `);
+//   return echange;
+// }
