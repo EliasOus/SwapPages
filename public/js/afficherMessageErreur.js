@@ -2,6 +2,7 @@ const erreurQuantite = document.querySelector(".erreur-quantite");
 const erreurNomEchange = document.querySelector(".erreur-nom-echange");
 const briquesSelection = document.getElementById("briques-selection");
 const nomEchangeInput = document.getElementById("nom-echange");
+const erreurRecherche = document.getElementById("erreur-recherche");
 
 /**
  * function pour ajouter la coleur pour nom invalide
@@ -47,4 +48,22 @@ export function afficherQuantiteValide() {
   // Retirer le message d'erreur
   erreurQuantite.innerText = "";
   briquesSelection.style.border = "none";
+}
+
+/**
+ * function pour ajouter la coleur pour recherche invalide
+ */
+export function afficherRechercheInvalide() {
+  // Afficher le message d'erreur quantité
+  erreurRecherche.style.display = "block";
+  erreurRecherche.style.color = "#FF0000";
+  erreurRecherche.style.fontSize = ".5rem";
+  erreurRecherche.innerText = "Veuillez saisir un titre valide";
+}
+/**
+ * function pour enlever la coleur pour recherche valide
+ */
+export function afficherRechercheValide() {
+  // Afficher le message d'erreur quantité
+  erreurRecherche.style.display = "none";
 }

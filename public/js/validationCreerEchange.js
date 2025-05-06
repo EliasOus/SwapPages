@@ -12,6 +12,19 @@ export function validerNomEchange(nomEchange) {
 }
 
 /**
+ * function qui valider le nom d'echange cote client
+ * @param {string} rechercheText
+ * @returns
+ */
+export function validerRechercheText(rechercheText) {
+  if (String(rechercheText).length >= 2 && String(rechercheText).length <= 30 && rechercheText) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+/**
  * function pourvalide la quantite cote client
  * @param {Number} quantite
  * @returns

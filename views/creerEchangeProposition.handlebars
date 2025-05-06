@@ -12,6 +12,11 @@
       </div>
     </div>
     <h3>Ajouter des Briques</h3>
+    <div>
+      <input type="text" id="recherche" placeholder="Recherche" name="Recherche" />
+      <button type="button" id="rechercheBtn">Recherche</button>
+      <p id="erreur-recherche" style="display: none;"></p>
+    </div>
     <div id="briques-selection">
       {{#each dbBriques}}
         <div class="brique-item">

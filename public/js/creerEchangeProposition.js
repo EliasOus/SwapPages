@@ -1,11 +1,14 @@
 import {
   validerNomEchange,
   validerQuantite,
+  validerRechercheText,
 } from "./validationCreerEchange.js";
 import {
   afficherNomInvalide,
   afficherNomValide,
   afficherQuantiteInvalide,
+  afficherRechercheInvalide,
+  afficherRechercheValide,
 } from "./afficherMessageErreur.js";
 
 const nomEchange = document.getElementById("nom-echange");
@@ -177,3 +180,15 @@ if (document.getElementById("form-creer-proposition")) {
   const form = document.getElementById("form-creer-proposition");
   form.addEventListener("submit", creerPropositionServer);
 }
+
+const rechercheText = document.getElementById("recherche");
+const rechercheBtn = document.getElementById("rechercheBtn");
+rechercheBtn.addEventListener("click", () => {
+  if (validerRechercheText(rechercheText.value)) {
+    console.log("Bouton recherche cliqué ! " + rechercheText.value);
+    afficherRechercheValide();
+    rechercheText.value = ""; //initialisation champs de recherche
+  } else {
+    afficherRechercheInvalide();
+  }
+});

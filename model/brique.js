@@ -75,22 +75,29 @@ export async function deleteEchangeUtilisateur(id_echange) {
  * @returns
  */
 export async function getBriques() {
-  const response = await axios.get(
-    "https://www.googleapis.com/books/v1/volumes?q=management&maxResults=40"
-  );
+  try {
+    const response = await axios.get(
+      "https://www.googleapis.com/books/v1/volumes?q=management&maxResults=40"
+    );
 
-  const livres = response.data.items.map((livre) => ({
-    id_brique: livre.id,
-    nom_brique: livre.volumeInfo.title,
-    couleur: "noir_test",
-    valeur: 5,
-    image: livre.volumeInfo.imageLinks?.thumbnail || null,
-    language: livre.volumeInfo.language,
-    authors: livre.volumeInfo.authors?.[0] || null,
-  }));
+    const livres = response.data.items.map((livre) => ({
+      id_brique: livre.id,
+      nom_brique: livre.volumeInfo.title,
+      couleur: "noir_test",
+      valeur: 5,
+      image: livre.volumeInfo.imageLinks?.thumbnail || null,
+      language: livre.volumeInfo.language,
+      authors: livre.volumeInfo.authors?.[0] || null,
+    }));
 
-  console.log(livres);
-  return livres;
+    return livres;
+  } catch (error) {
+    // En cas d’erreur (ex: ID invalide)
+    console.error(
+      `Erreur lors de la récupération du livre ${livre.id_brique}:`,
+      error.message
+    );
+  }
 }
 
 /**
@@ -275,8 +282,8 @@ export async function getProposition(id_proposition) {
 
 /**
  * function pour afficher tou les propositions
- * @param {Number} id_echange 
- * @returns 
+ * @param {Number} id_echange
+ * @returns
  */
 export async function getPropositions(id_echange) {
   const resultat = await connexion.all(
@@ -341,4 +348,3 @@ export async function creePropositionBrique(
   }
   return idProposition;
 }
-
