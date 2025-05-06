@@ -16,7 +16,13 @@
       {{#each dbBriques}}
         <div class="brique-item">
           <img
-            src="assets/{{this.image}}"
+            {{#if this.image}}
+            src="{{this.image}}"
+            {{else}}
+            src="assets\imgs\pas_image.png"
+            {{/if}}
+            {{!-- src="{{this.image}}" --}}
+            {{!-- src="assets/{{this.image}}" --}}
             alt="{{this.nom_brique}}"
             class="brique-image"
           />

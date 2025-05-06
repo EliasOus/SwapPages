@@ -62,6 +62,18 @@ app.use(helmet());
 app.use(cors());
 app.use(compression());
 app.use(json());
+
+// configuration de la politique CSP pour afficher les src image extrene
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      imgSrc: [
+        "'self'",
+        "http://books.google.com",
+      ],
+    },
+  })
+);
 //configuration session
 app.use(
   session({
@@ -593,6 +605,7 @@ app.get("/api/livres", async (request, response) => {
     const datas = await res.json();
 
     const livres = datas.docs.map((livre) => ({
+      id: livre.key,
       titre: livre.title,
       auteur: livre.author_name ? livre.author_name.join(", ") : "Inconnu",
       cover_url: livre.cover_i

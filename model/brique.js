@@ -1,4 +1,5 @@
 import { connexion } from "../db/db.js";
+import axios from "axios";
 
 /**
  * Fonction pour afficher toutes les echange qui se trouvent dans le site (base de données).
@@ -80,7 +81,29 @@ export async function getBriques() {
     JOIN couleur c ON b.id_couleur = c.id_couleur;
     `
   );
-  return briques;
+
+  const response = await axios.get(
+    // "https://www.googleapis.com/books/v1/volumes?q=harry+potter&maxResults=40"
+    "https://www.googleapis.com/books/v1/volumes?q=intitle:%22Harry%20Potter%20and%20the%20Prisoner%20of%20Azkaban%22&maxResults=40"
+  );
+
+  const livres = response.data.items.map((livre) => ({
+    id_brique: livre.id,
+    nom_brique: livre.volumeInfo.title,
+    couleur: "noir_test",
+    valeur: 5,
+    image: livre.volumeInfo.imageLinks?.thumbnail || null,
+  }));
+
+  // const briquesTest = briques.map((brique, index) => ({
+  //   ...brique,
+  //   nom_brique: livres.data.docs[index].title,
+  //   test: "elias",
+  // }));
+
+  console.log(livres);
+  return livres;
+  // return briquesTest;
 }
 
 /**
@@ -280,12 +303,11 @@ export async function creePropositionBrique(
   return idProposition;
 }
 
-
 //////////////////////////////////////////////////////////
 
 // export async function getLivres(nom_auteur) {
-//   const 
-  
+//   const
+
 // }
 
 // export async function getEchanges() {
