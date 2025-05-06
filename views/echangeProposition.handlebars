@@ -8,21 +8,19 @@
       {{#each dbEchangeProposition}}
         <div class="brique-item">
           <img
-            src="/assets/{{this.image}}"
+            {{#if this.image}}
+            src="{{this.image}}"
+            {{else}}
+            src="assets\imgs\pas_image.png"
+            {{/if}}
             alt="{{this.nom_brique}}"
             class="brique-image"
           />
           <label>Nom : {{this.nom_brique}}</label>
-          <label>Couleur: {{this.couleur}}</label>
           <label>Quantite : {{this.quantite}}</label>
-          <label>Prix : {{this.prix_brique}} $</label>
         </div>
       {{/each}}
 
-    </div>
-
-    <div id="prix-total">
-      <h2>Prix Total : {{prixTotal}} $</h2>
     </div>
 
     {{#if ISeligiblebtn}}

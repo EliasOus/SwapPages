@@ -12,7 +12,7 @@ async function createDatabase(connexion) {
         );
         
         CREATE TABLE brique (
-            id_brique INTEGER PRIMARY KEY,
+            id_brique TEXT PRIMARY KEY,
             id_couleur INTEGER,
             id_design NOT NULL,
             nom TEXT NOT NULL,
@@ -49,7 +49,7 @@ async function createDatabase(connexion) {
         
         CREATE TABLE echange_brique (
             id_echange INTEGER,
-            id_brique INTEGER,
+            id_brique TEXT,
             quantite INTEGER NOT NULL,
             PRIMARY KEY(id_echange, id_brique), 
             FOREIGN KEY(id_echange) REFERENCES echange(id_echange),
@@ -58,7 +58,7 @@ async function createDatabase(connexion) {
         
         CREATE TABLE proposition_brique (
             id_proposition INTEGER,
-            id_brique INTEGER,
+            id_brique TEXT,
             quantite INTEGER NOT NULL,
             PRIMARY KEY(id_proposition, id_brique), 
             FOREIGN KEY(id_proposition) REFERENCES proposition(id_proposition),

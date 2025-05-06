@@ -4,6 +4,7 @@
   display: block;
   margin: 10px 0 5px;
 }
+
 /* style pour la page de creer echange qui concerne le input */
 #form-creer-echange input[type="text"],
 #form-creer-proposition input[type="text"] {
@@ -14,6 +15,7 @@
   border: 1px solid #ddd;
   border-radius: 4px;
 }
+
 #form-creer-echange p,
 #form-creer-proposition p {
   width: 500px;
@@ -73,7 +75,7 @@
 /*style pour la page voir details de l'echange et creer echange*/
 .brique-image {
   width: 100px;
-  height: 100px;
+  height: 160px;
   object-fit: cover;
   display: block;
   margin-bottom: 10px;

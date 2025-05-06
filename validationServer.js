@@ -53,7 +53,7 @@ export function validerIdBrique(id_brique) {
     return false;
   }
   for (let id of id_brique) {
-    if (typeof id !== "number" || id <= 0 || !Number.isInteger(id)) {
+    if (typeof id !== "string" || id.trim() === "") {
       return false;
     }
   }

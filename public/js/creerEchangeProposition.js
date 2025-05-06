@@ -13,7 +13,6 @@ const briques = document.querySelectorAll(
   '#briques-selection input[type="number"]'
 );
 
-
 let id_briques = [];
 let quantites = [];
 let validationQuantites = [];
@@ -75,7 +74,10 @@ export function verifierQuantite() {
   } else {
     validationQuantites.forEach((validationQuantite) => {
       // Ajouter les données aux tableaux
-      id_briques.push(Number(validationQuantite.getAttribute("data-id")));
+      id_briques.push(validationQuantite.getAttribute("data-id"));
+      console.log(id_briques.length); /////////////////////
+      console.log(id_briques[0]); //////////////////////////
+      // id_briques.push(Number(validationQuantite.getAttribute("data-id")));
       quantites.push(Number(validationQuantite.value));
     });
   }
@@ -131,7 +133,6 @@ async function creerPropositionServer(event) {
 
   // Récupérer id_echange depuis sessionStorage
   const idEchange = sessionStorage.getItem("id_echange");
-  
 
   if (ISquantiteValide) {
     // Envoi des données à l'API

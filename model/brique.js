@@ -16,7 +16,7 @@ export async function getEchanges() {
 }
 
 /**
- * Fonction pour afficher toutes les echange pour chaque utilisateur ; dans notre cas, on a un seul utilisateur avec id_utilisateur = 1.
+ * Fonction pour afficher toutes les echange pour chaque utilisateur
  * @param {*} id_utilisateur
  * @returns
  */
@@ -71,20 +71,12 @@ export async function deleteEchangeUtilisateur(id_echange) {
 }
 
 /**
- * Fonction pour afficher toutes les briques et la couleur de chaque brique.
+ * Fonction pour afficher toutes les livres
  * @returns
  */
 export async function getBriques() {
-  const briques = await connexion.all(
-    `SELECT id_brique, id_design, b.nom AS nom_brique, c.nom AS couleur, valeur, image 
-    FROM brique b
-    JOIN couleur c ON b.id_couleur = c.id_couleur;
-    `
-  );
-
   const response = await axios.get(
-    // "https://www.googleapis.com/books/v1/volumes?q=harry+potter&maxResults=40"
-    "https://www.googleapis.com/books/v1/volumes?q=intitle:%22Harry%20Potter%20and%20the%20Prisoner%20of%20Azkaban%22&maxResults=40"
+    "https://www.googleapis.com/books/v1/volumes?q=management&maxResults=40"
   );
 
   const livres = response.data.items.map((livre) => ({
@@ -93,17 +85,12 @@ export async function getBriques() {
     couleur: "noir_test",
     valeur: 5,
     image: livre.volumeInfo.imageLinks?.thumbnail || null,
+    language: livre.volumeInfo.language,
+    authors: livre.volumeInfo.authors?.[0] || null,
   }));
-
-  // const briquesTest = briques.map((brique, index) => ({
-  //   ...brique,
-  //   nom_brique: livres.data.docs[index].title,
-  //   test: "elias",
-  // }));
 
   console.log(livres);
   return livres;
-  // return briquesTest;
 }
 
 /**
@@ -157,30 +144,55 @@ export async function creeEchangeBrique(
 export async function getEchange(id_echange) {
   const resultat = await connexion.all(
     `SELECT
-          e.id_echange,
-          b.id_brique,
-          e.id_utilisateur,
-          e.nom_echange,
-          u.nom AS nom_utilisateur,
-          b.nom AS nom_brique,
-          c.nom AS couleur,
-          quantite,
-          valeur AS prix_brique,
-          image
-        FROM echange e
-        JOIN utilisateur u
-          ON e.id_utilisateur = u.id_utilisateur
-        JOIN echange_brique eb
-          ON e.id_echange = eb.id_echange
-        JOIN brique b
-          ON eb.id_brique = b.id_brique
-        JOIN couleur c
-          ON b.id_couleur = c.id_couleur
-        WHERE e.id_echange = ?;`,
+        e.id_echange,
+        id_brique,
+        e.id_utilisateur,
+        e.nom_echange,
+        u.nom AS nom_utilisateur,
+        quantite
+      FROM echange e
+      JOIN utilisateur u
+        ON e.id_utilisateur = u.id_utilisateur
+      JOIN echange_brique eb
+        ON e.id_echange = eb.id_echange
+      WHERE e.id_echange = ?;`,
     [id_echange]
   );
 
-  return resultat;
+  const livres = await Promise.all(
+    resultat.map(async (livre) => {
+      try {
+        const datas = await axios.get(
+          `https://www.googleapis.com/books/v1/volumes/${livre.id_brique}`
+        );
+
+        const info = datas.data.volumeInfo;
+
+        return {
+          ...livre,
+          nom_brique: info.title || null,
+          image: info.imageLinks?.thumbnail || null,
+          language: info.language || null,
+          authors: info.authors?.[0] || null,
+        };
+      } catch (error) {
+        // En cas d’erreur (ex: ID invalide)
+        console.error(
+          `Erreur lors de la récupération du livre ${livre.id_brique}:`,
+          error.message
+        );
+        return {
+          ...livre,
+          nom_brique: null,
+          image: null,
+          language: null,
+          authors: null,
+        };
+      }
+    })
+  );
+
+  return livres;
 }
 
 /**

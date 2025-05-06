@@ -4,6 +4,7 @@
   align-items: center;
   flex-wrap: wrap;
 }
+
 /*style pour la page voir details de l'echange*/
 .brique-item {
   width: 15%;
@@ -22,8 +23,8 @@
 
 /*style pour la page voir details de l'echange*/
 .brique-image {
-  width: 100px;
-  height: 100px;
+  width: auto;
+  height: 160px;
   object-fit: cover;
   display: block;
   margin-bottom: 10px;
@@ -47,11 +48,13 @@
   justify-content: space-between;
   flex-direction: row;
 }
+
 #echange h2,
 #proposition h2 {
   text-decoration: underline;
   text-transform: capitalize;
 }
+
 #echange span,
 #proposition span {
   font-size: 1.2rem;
@@ -96,6 +99,7 @@
   text-align: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
+
 .proposition-item {
   margin: 20px 10px;
   padding: 10px;
@@ -103,6 +107,7 @@
   border-radius: 8px;
   box-shadow: 0px 0px 20px #54b3b16e;
 }
+
 .proposition-item ul {
   width: 100%;
   display: flex;
