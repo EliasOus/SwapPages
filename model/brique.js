@@ -210,8 +210,6 @@ export async function getNomUtilisateur(id_utilisateur) {
   return nomUtilisateur;
 }
 
-/////////////////////////////////////////////////////////////////// UA3 ///////////////////////////////////////
-
 /**
  * function pour afficher toutes les briques qui se trouvent dans une proposition.
  * @param {Number} id_proposition
@@ -224,15 +222,11 @@ export async function getProposition(id_proposition) {
           e.id_echange,
           e.id_utilisateur AS id_utilisateur_echange,
           p.id_utilisateur AS id_utilisateur_proposition,
-          b.id_brique,
+          id_brique,
           e.nom_echange,
           u.nom AS nom_utilisateur_proposition,
           u.prenom AS prenom_utilisateur_proposition,
-          b.nom AS nom_brique,
-          c.nom AS couleur,
-          quantite,
-          valeur AS prix_brique,
-          image
+          quantite
         FROM proposition_brique pb
         JOIN proposition p
         ON pb.id_proposition = p.id_proposition
@@ -240,17 +234,50 @@ export async function getProposition(id_proposition) {
         ON p.id_echange = e.id_echange
         JOIN utilisateur u 
         ON p.id_utilisateur = u.id_utilisateur
-        JOIN brique b
-        ON pb.id_brique = b.id_brique
-        JOIN couleur c
-        ON b.id_couleur = c.id_couleur
         WHERE p.id_proposition = ?;`,
     [id_proposition]
   );
 
-  return resultat;
+  const livres = await Promise.all(
+    resultat.map(async (livre) => {
+      try {
+        const datas = await axios.get(
+          `https://www.googleapis.com/books/v1/volumes/${livre.id_brique}`
+        );
+
+        const info = datas.data.volumeInfo;
+
+        return {
+          ...livre,
+          nom_brique: info.title || null,
+          image: info.imageLinks?.thumbnail || null,
+          language: info.language || null,
+          authors: info.authors?.[0] || null,
+        };
+      } catch (error) {
+        // En cas d’erreur (ex: ID invalide)
+        console.error(
+          `Erreur lors de la récupération du livre ${livre.id_brique}:`,
+          error.message
+        );
+        return {
+          ...livre,
+          nom_brique: null,
+          image: null,
+          language: null,
+          authors: null,
+        };
+      }
+    })
+  );
+  return livres;
 }
 
+/**
+ * function pour afficher tou les propositions
+ * @param {Number} id_echange 
+ * @returns 
+ */
 export async function getPropositions(id_echange) {
   const resultat = await connexion.all(
     `
@@ -315,18 +342,3 @@ export async function creePropositionBrique(
   return idProposition;
 }
 
-//////////////////////////////////////////////////////////
-
-// export async function getLivres(nom_auteur) {
-//   const
-
-// }
-
-// export async function getEchanges() {
-//   const echange = await connexion.all(`
-//     SELECT e.id_echange, u.id_utilisateur, e.nom_echange, u.nom AS nom_utilisateur, u.prenom AS prenom_utilisateur
-//     FROM echange e
-//     JOIN utilisateur u ON e.id_utilisateur = u.id_utilisateur;
-//     `);
-//   return echange;
-// }
