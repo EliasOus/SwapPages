@@ -67,10 +67,7 @@ app.use(json());
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      imgSrc: [
-        "'self'",
-        "http://books.google.com",
-      ],
+      imgSrc: ["'self'", "http://books.google.com"],
     },
   })
 );
@@ -283,6 +280,37 @@ app.get(
       //variable pour gerer les utilisateur
       utilisateur: request.user,
     });
+  }
+);
+
+/**
+ * Page handlebars creer echange
+ */
+app.get(
+  "/resultatRecherche",
+  utilisateurConnecteClient,
+  async (request, response) => {
+    const dbBriques = await getBriques();
+
+    response.render(
+      "partials/resultatRecherche",
+      {
+        layout: false,
+        styles: ["/css/creerEchangeProposition.css"],
+        scripts: [
+          "/js/creerEchangeProposition.js",
+          "/js/validationCreerEchange.js",
+          "/js/afficherMessageErreur.js",
+        ],
+        dbBriques: dbBriques,
+      },
+      (err, html) => {
+        if (err) {
+          return response.status(500).send("erreru du rendu");
+        }
+        response.send(html);
+      }
+    );
   }
 );
 

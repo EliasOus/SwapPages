@@ -1,0 +1,26 @@
+{{#each dbBriques}}
+  <div class="brique-item">
+    <img
+      {{#if this.image}}
+      src="{{this.image}}"
+      {{else}}
+      src="assets\imgs\pas_image.png"
+      {{/if}}
+      alt="{{this.nom_brique}}"
+      class="brique-image"
+    />
+    <label>{{this.nom_brique}}</label>
+    <label>Prix: {{this.valeur}} $</label>
+    <input
+      type="number"
+      min="0"
+      max="200"
+      required
+      placeholder="Quantite"
+      data-id="{{this.id_brique}}"
+      style="width: 90px;"
+      value="0"
+    />
+  </div>
+{{/each}}
+

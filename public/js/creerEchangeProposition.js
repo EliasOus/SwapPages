@@ -188,6 +188,16 @@ rechercheBtn.addEventListener("click", () => {
     console.log("Bouton recherche cliqué ! " + rechercheText.value);
     afficherRechercheValide();
     rechercheText.value = ""; //initialisation champs de recherche
+
+    const container = document.getElementById("briques-selection");
+
+    fetch("/resultatRecherche")
+      .then((res) => res.text())
+      .then((html) => {
+        // Vider le contenu
+        container.innerHTML = "";
+        container.innerHTML = html;
+      });
   } else {
     afficherRechercheInvalide();
   }
