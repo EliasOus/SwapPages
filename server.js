@@ -233,7 +233,8 @@ app.get(
   "/creerProposition",
   utilisateurConnecteClient,
   async (request, response) => {
-    const dbBriques = await getBriques();
+    const titre = "management";
+    const dbBriques = await getBriques(titre);
 
     response.render("creerEchangeProposition", {
       titre: "Brique | Creer Proposition",
@@ -261,7 +262,8 @@ app.get(
   "/creerEchange",
   utilisateurConnecteClient,
   async (request, response) => {
-    const dbBriques = await getBriques();
+    const titre = "management";
+    const dbBriques = await getBriques(titre);
 
     response.render("creerEchangeProposition", {
       titre: "Brique | Creer Echange",
@@ -290,7 +292,8 @@ app.get(
   "/resultatRecherche",
   utilisateurConnecteClient,
   async (request, response) => {
-    const dbBriques = await getBriques();
+    const titre = request.query.titre;
+    const dbBriques = await getBriques(titre);
 
     response.render(
       "partials/resultatRecherche",

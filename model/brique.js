@@ -74,10 +74,10 @@ export async function deleteEchangeUtilisateur(id_echange) {
  * Fonction pour afficher toutes les livres
  * @returns
  */
-export async function getBriques() {
+export async function getBriques(titre) {
   try {
     const response = await axios.get(
-      "https://www.googleapis.com/books/v1/volumes?q=management&maxResults=40"
+      `https://www.googleapis.com/books/v1/volumes?q=${titre}&maxResults=40`
     );
 
     const livres = response.data.items.map((livre) => ({

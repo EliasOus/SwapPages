@@ -186,14 +186,14 @@ const rechercheBtn = document.getElementById("rechercheBtn");
 rechercheBtn.addEventListener("click", () => {
   if (validerRechercheText(rechercheText.value)) {
     console.log("Bouton recherche cliqué ! " + rechercheText.value);
-    afficherRechercheValide();
-    rechercheText.value = ""; //initialisation champs de recherche
 
     const container = document.getElementById("briques-selection");
 
-    fetch("/resultatRecherche")
+    fetch(`/resultatRecherche?titre=${rechercheText.value}`)
       .then((res) => res.text())
       .then((html) => {
+        afficherRechercheValide();
+        rechercheText.value = ""; //initialisation champs de recherche
         // Vider le contenu
         container.innerHTML = "";
         container.innerHTML = html;
