@@ -6,12 +6,28 @@
 
     {{#each dbEchanges}}
       <div class="echnage-item">
-        <h4 id="non-utilisateur">{{this.nom_utilisateur}}  {{this.prenom_utilisateur}}</h4>
+        <h4 id="non-utilisateur">{{this.nom_utilisateur}}
+          {{this.prenom_utilisateur}}</h4>
         <div class="text-echange">
           <p id="nom-echange">{{this.nom_echange}}</p>
         </div>
+
+        {{#each imgLinks}}
+          <img
+              {{#if this}}
+              src="{{this}}"
+              {{else}}
+              src="assets\imgs\pas_image.png"
+              {{/if}}
+              alt="image de livre"
+              class="brique-image"
+            />
+        {{/each}}
         <div class="btn-details-link">
-          <a href="/echange?id_echange={{this.id_echange}}" class="details-link"> details </a>
+          <a
+            href="/echange?id_echange={{this.id_echange}}"
+            class="details-link"
+          > details </a>
         </div>
       </div>
 

@@ -138,6 +138,8 @@ function utilisateurPasConnecteClient(request, response, next) {
  */
 app.get("/", async (request, response) => {
   const dbEchanges = await getEchanges();
+  console.log("---------------");
+  console.log(dbEchanges);
 
   response.render("echanges", {
     titre: "Brique | Accueil",
@@ -158,6 +160,8 @@ app.get(
   async (request, response) => {
     const id_utilisateur = request.user.id_utilisateur;
     const dbUtilisateur = await getEchangeUtilisateur(id_utilisateur);
+
+    console.log(dbUtilisateur);
 
     response.render("utilisateur", {
       titre: "Utilisateur",

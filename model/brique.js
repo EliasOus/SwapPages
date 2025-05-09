@@ -8,11 +8,68 @@ import axios from "axios";
 
 export async function getEchanges() {
   const echange = await connexion.all(`
-    SELECT e.id_echange, u.id_utilisateur, e.nom_echange, u.nom AS nom_utilisateur, u.prenom AS prenom_utilisateur
-    FROM echange e
-    JOIN utilisateur u ON e.id_utilisateur = u.id_utilisateur;
+    SELECT e.id_echange, u.id_utilisateur, eb.id_brique, e.nom_echange, u.nom AS nom_utilisateur, u.prenom AS prenom_utilisateur
+    FROM echange_brique eb
+    JOIN echange e
+    ON eb.id_echange = e.id_echange
+    JOIN utilisateur u 
+    ON e.id_utilisateur = u.id_utilisateur;
     `);
-  return echange;
+
+  // Regroupe les échanges par id_echange et rassemble les id_brique en tableau.
+  const map = new Map();
+  for (const item of echange) {
+    const existing = map.get(item.id_echange);
+    if (existing) {
+      existing.id_brique.push(item.id_brique);
+    } else {
+      map.set(item.id_echange, {
+        id_echange: item.id_echange,
+        id_utilisateur: item.id_utilisateur,
+        nom_echange: item.nom_echange,
+        nom_utilisateur: item.nom_utilisateur,
+        prenom_utilisateur: item.prenom_utilisateur,
+        id_brique: [item.id_brique], // tableau dès le départ
+      });
+    }
+  }
+
+  const echangesTableau = Array.from(map.values());
+
+  // recupere les lien des image de chaque livre dans l'API google books
+  const echanges = await Promise.all(
+    echangesTableau.map(async (e) => {
+      try {
+        const imgLinks = [];
+        for (let i = 0; i < e.id_brique.length; i++) {
+          const images = await axios.get(
+            `https://www.googleapis.com/books/v1/volumes/${e.id_brique[i]}`
+          );
+
+          const imgLink = images.data.volumeInfo.imageLinks.thumbnail || null;
+          imgLinks.push(imgLink);
+        }
+
+        return {
+          ...e,
+          imgLinks,
+        };
+      } catch (error) {
+        // En cas d’erreur (ex: ID invalide)
+        console.error(
+          `Erreur lors de la récupération du livre:`,
+          error.message
+        );
+
+        return {
+          ...e,
+          imgLink: null,
+        };
+      }
+    })
+  );
+
+  return echanges;
 }
 
 /**
@@ -93,10 +150,7 @@ export async function getBriques(titre) {
     return livres;
   } catch (error) {
     // En cas d’erreur (ex: ID invalide)
-    console.error(
-      `Erreur lors de la récupération du livre ${livre.id_brique}:`,
-      error.message
-    );
+    console.error(`Erreur lors de la récupération du livre:`, error.message);
   }
 }
 
