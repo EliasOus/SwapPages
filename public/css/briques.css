@@ -7,15 +7,13 @@
 /* style pour le body de toute les pages*/
 body {
   font-family: Arial, sans-serif;
-  line-height: 1.6;
-  color: #333;
-  background-color: #f9f9f9;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   min-height: 100vh;
 }
+
 /* style pour ul de toute les pages */
 ul {
   list-style: none;
@@ -28,6 +26,7 @@ button {
   border: none;
   border-radius: 6px;
 }
+
 /*styles pour les deux boutons (accueil / creer echange) de toute les pages */
 button li a {
   font-size: 15px;
@@ -41,37 +40,38 @@ main {
   align-items: center;
   min-height: 80%;
 }
+
 /*style de section pour toutes les pages sauf la pages utilisateurs*/
 section {
-  width: 90%;
-  margin: 30px auto;
+  width: 100%;
+  margin: 30px 0px;
   padding: 20px;
-  border-radius: 30px;
-  box-shadow: 0px 0px 20px 0.5px #54b3b1;
   overflow: hidden;
 }
 
 /*style  pour la balise section pour toutes les pages sauf la pages utilisateurs*/
 section h2 {
-  color: #444;
-  margin-bottom: 10px;
-  color: #444;
-  margin-bottom: 10px;
+  color: black;
+  font-weight: 800;
+  margin-bottom: 30px;
   text-align: center;
   text-transform: uppercase;
+  display: block;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid black;
 }
 
 /* style pour le titre de toutes les pages*/
 #contenaire-header {
-  width: 90%;
-  height: 80px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 0px;
-  background-color: #111;
-  color: #fff;
+  background-color: #fff2e0;
+  color: black;
   padding: 10px 50px;
-  margin-top: 8px;
-  border-radius: 50px;
+  border-radius: 0px 0px 80px 80px;
+  box-shadow: 0px -20px 40px 0px #14532d;
+
 }

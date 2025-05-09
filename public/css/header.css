@@ -5,15 +5,19 @@ header {
   justify-content: center;
   align-items: center;
 }
+
 /* style pour le logo de site web*/
 header h1 {
-  font-size: 24px;
+  font-size: 2rem;
+  font-weight: 800;
 }
+
 /* style pour le logo de site web */
 header h1 span {
-  color: #54b3b1;
+  color: #14532d;
   font-size: 35px;
 }
+
 /* style pour le navigation*/
 nav {
   display: flex;
@@ -30,11 +34,10 @@ nav {
 nav a,
 nav input {
   text-decoration: none;
-  color: #fff;
+  color: black;
   font-size: 1.2rem;
-  background-color: transparent;
-  border: none;
   cursor: pointer;
+  font-weight: 700;
 }
 
 /*style pour la div qui contient le titre et le bouton utilisateur dans le header*/
@@ -44,21 +47,29 @@ nav input {
   align-items: center;
 }
 
+#utilisateur {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 /* style pour le logo utilisateur dans le header */
 #utilisateur a {
-  color: #54b3b1;
+  color: #14532d;
   text-decoration: none;
-  font-size: 18px;
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-direction: column;
   align-items: center;
 }
+
 /* style pour le logo utilisateur de header */
 #utilisateur i {
-  font-size: 45px;
-  color: white;
+  font-size: 2.3rem;
+  color: black;
 }
+
 /*style pour le bouton utilisateur dans le header */
 #utilisateur button {
   background-color: white;
@@ -67,8 +78,19 @@ nav input {
   border-radius: 6px;
   cursor: pointer;
 }
+
 /* style pour le lien du bouton utilisateur dans le header*/
 #utilisateur button h3 a {
   text-decoration: none;
   display: inline;
+}
+
+#utilisateur form input {
+  margin-top: .5rem;
+  background-color: transparent;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-size: .8rem;
+  font-weight: 700;
 }
