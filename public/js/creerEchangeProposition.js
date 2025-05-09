@@ -7,14 +7,10 @@ import {
   afficherNomInvalide,
   afficherNomValide,
   afficherQuantiteInvalide,
+  afficherQuantiteValide,
   afficherRechercheInvalide,
   afficherRechercheValide,
 } from "./afficherMessageErreur.js";
-
-const nomEchange = document.getElementById("nom-echange");
-const briques = document.querySelectorAll(
-  '#briques-selection input[type="number"]'
-);
 
 let id_briques = [];
 let quantites = [];
@@ -25,7 +21,7 @@ let quantiteValide;
 /**
  * function pour verifier les champs d'entrer dans la page creer echanges
  */
-function verifierNomEchange() {
+function verifierNomEchange(nomEchange) {
   nomEchangeValide = false;
   if (validerNomEchange(nomEchange.value)) {
     // Ajouter la validation du nom de l'échange
@@ -43,15 +39,15 @@ function verifierNomEchange() {
   }
 }
 
+// id_briques = [];
+// quantites = [];
 /**
  * function pour verifier la quentite des briques cote client
  * @returns
  */
-export function verifierQuantite() {
+export function verifierQuantite(briques, erreurMessage = true) {
   //initialisation des variable et les tableaux
   quantiteValide = true;
-  id_briques = [];
-  quantites = [];
   validationQuantites = [];
 
   // Parcourir les briques et vérifier si les quantités sont valides.
@@ -71,16 +67,18 @@ export function verifierQuantite() {
   // Vérifier si quantiteValide est false pour afficher le message d'erreur.
   // Si quantiteValide est true, on ajoute les quantités dans le tableau quantites et
   // les id_brique dans le tableau id_briques pour les utiliser dans les données du fetch.
-  if (!quantiteValide || validationQuantites.length === 0) {
-    afficherQuantiteInvalide();
+  if (
+    !quantiteValide ||
+    (validationQuantites.length === 0 && quantites.length === 0)
+  ) {
+    if (erreurMessage) {
+      afficherQuantiteInvalide();
+    }
     return false;
   } else {
     validationQuantites.forEach((validationQuantite) => {
       // Ajouter les données aux tableaux
       id_briques.push(validationQuantite.getAttribute("data-id"));
-      console.log(id_briques.length); /////////////////////
-      console.log(id_briques[0]); //////////////////////////
-      // id_briques.push(Number(validationQuantite.getAttribute("data-id")));
       quantites.push(Number(validationQuantite.value));
     });
   }
@@ -94,9 +92,14 @@ export function verifierQuantite() {
 async function creerEchangeServer(event) {
   event.preventDefault();
 
+  const nomEchange = document.getElementById("nom-echange");
+  const briques = document.querySelectorAll(
+    '#briques-selection input[type="number"]'
+  );
+
   //appele la function pour verifier le nom d'echange est ce que il est valide.
-  const ISnomValide = verifierNomEchange();
-  const ISquantiteValide = verifierQuantite();
+  const ISnomValide = verifierNomEchange(nomEchange);
+  const ISquantiteValide = verifierQuantite(briques);
 
   if (ISnomValide && ISquantiteValide) {
     // Envoi des données à l'API
@@ -117,10 +120,10 @@ async function creerEchangeServer(event) {
     if (response.ok) {
       const idEchange = await response.json();
       // Redirige directement vers la page de l'échange qui a été créée.
-      window.location.href = `/echange?id_echange=${idEchange.id_echange}`;
+      window.location.replace(`/echange?id_echange=${idEchange.id_echange}`);
     }
   } else {
-    verifierNomEchange();
+    verifierNomEchange(nomEchange);
   }
 }
 
@@ -131,8 +134,12 @@ async function creerEchangeServer(event) {
 async function creerPropositionServer(event) {
   event.preventDefault();
 
+  const briques = document.querySelectorAll(
+    '#briques-selection input[type="number"]'
+  );
+
   //appele la function pour verifier la quantite est ce que il est valide.
-  const ISquantiteValide = verifierQuantite();
+  const ISquantiteValide = verifierQuantite(briques);
 
   // Récupérer id_echange depuis sessionStorage
   const idEchange = sessionStorage.getItem("id_echange");
@@ -169,7 +176,7 @@ if (document.getElementById("form-creer-echange")) {
   form.addEventListener("submit", creerEchangeServer);
 
   // Ajouter l'écouteur d'événement pour le champ nom de l'échange
-  nomEchange.addEventListener("input", verifierNomEchange);
+  // nomEchange.addEventListener("input", verifierNomEchange);
 }
 
 /**
@@ -180,12 +187,21 @@ if (document.getElementById("form-creer-proposition")) {
   const form = document.getElementById("form-creer-proposition");
   form.addEventListener("submit", creerPropositionServer);
 }
+const liversTotal = [];
 
+function addLivres() {}
+
+/**
+ * Ajout d'un événement au clic sur le bouton de recherche
+ */
 const rechercheText = document.getElementById("recherche");
 const rechercheBtn = document.getElementById("rechercheBtn");
 rechercheBtn.addEventListener("click", () => {
   if (validerRechercheText(rechercheText.value)) {
-    console.log("Bouton recherche cliqué ! " + rechercheText.value);
+    const briques = document.querySelectorAll(
+      '#briques-selection input[type="number"]'
+    );
+    verifierQuantite(briques, false);
 
     const container = document.getElementById("briques-selection");
 
@@ -193,6 +209,8 @@ rechercheBtn.addEventListener("click", () => {
       .then((res) => res.text())
       .then((html) => {
         afficherRechercheValide();
+        afficherNomValide();
+        afficherQuantiteValide();
         rechercheText.value = ""; //initialisation champs de recherche
         // Vider le contenu
         container.innerHTML = "";
@@ -200,5 +218,12 @@ rechercheBtn.addEventListener("click", () => {
       });
   } else {
     afficherRechercheInvalide();
+  }
+});
+
+rechercheText.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault(); // Empêche un éventuel comportement par défaut
+    rechercheBtn.click(); // Simule le clic sur le bouton
   }
 });

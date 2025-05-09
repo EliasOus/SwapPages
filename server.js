@@ -286,7 +286,7 @@ app.get(
 );
 
 /**
- * Page handlebars creer echange
+ * Page handlebars Recherche
  */
 app.get(
   "/resultatRecherche",
