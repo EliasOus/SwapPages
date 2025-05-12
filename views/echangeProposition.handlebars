@@ -2,22 +2,26 @@
   <div id="echange-details">
     <div id="{{type}}">
       <h2>Nom de l'echange : <span>{{dbInfo.nom_echange}}</span></h2>
-      <h2 {{#if echange}}hidden{{/if}}>Proposer Par : <span>{{dbInfo.nom_utilisateur_proposition}}  {{dbInfo.prenom_utilisateur_proposition}}</span></h2>
+      <h2 class="{{#if echange}}hidden-class{{/if}}">Proposé Par : {{dbInfo.nom_utilisateur_proposition}} {{dbInfo.prenom_utilisateur_proposition}}</h2>
     </div>
     <div id="brique-items">
       {{#each dbEchangeProposition}}
         <div class="brique-item">
-          <img
-            {{#if this.image}}
-            src="{{this.image}}"
-            {{else}}
-            src="assets\imgs\pas_image.png"
-            {{/if}}
-            alt="{{this.nom_brique}}"
-            class="brique-image"
-          />
-          <label>Nom : {{this.nom_brique}}</label>
-          <label>Quantite : {{this.quantite}}</label>
+          <div class="brique-image">
+            <img
+              {{#if this.image}}
+              src="{{this.image}}"
+              {{else}}
+              src="assets\imgs\pas_image.png"
+              {{/if}}
+              alt="{{this.nom_brique}}"
+            />
+            <div class="langue"><span>{{this.language}}</span></div>
+          </div>
+          <div class="description-item">
+            <h1>{{this.nom_brique}}</h1>
+            <h2>{{this.authors}}</h2>
+          </div>
         </div>
       {{/each}}
 
@@ -32,7 +36,6 @@
 
   {{#if ISeligibleliste}}
     <div id="liste-proposition">
-      <span></span>
       {{#each dbProposition}}
         <div class="proposition-item" data-index="{{this.id_proposition}}">
           <ul>

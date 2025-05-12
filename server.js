@@ -138,8 +138,6 @@ function utilisateurPasConnecteClient(request, response, next) {
  */
 app.get("/", async (request, response) => {
   const dbEchanges = await getEchanges();
-  console.log("---------------");
-  console.log(dbEchanges);
 
   response.render("echanges", {
     titre: "Brique | Accueil",
@@ -375,6 +373,9 @@ app.get("/echange", async (request, response) => {
   if (validerIdEchange(parseInt(request.query.id_echange))) {
     const dbEchange = await getEchange(request.query.id_echange);
     const dbProposition = await getPropositions(request.query.id_echange);
+
+    console.log("/////////////////////////////");
+    console.log(dbEchange); //////////////////////////////////////////////////////////////
 
     if (dbEchange.length > 0) {
       //verification est ce que l'utilisateur est connecte
