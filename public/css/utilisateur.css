@@ -1,43 +1,46 @@
 /* style pour la page d'utilisateur */
 .bouton-supprimer {
-  /* background: red; */
   background: transparent;
-  /* border: none;
-      color: white; */
   cursor: pointer;
-  font-size: 10px;
-  border: red solid;
-  border-radius: 8px;
-  border-width: 0px;
-  text-align: center;
+  transition: transform 0.4s ease;
 }
+
 .bouton-supprimer i {
-  font-size: 35px;
+  font-size: 2.5em;
   color: red;
 }
+
+.bouton-supprimer:hover {
+  transform: rotate(15deg) scale(1.02);
+
+}
+
 /* style pour la page d'utilisateur */
 #compte-utilisateur {
-  font-size: 20px;
-  margin-right: 180px;
-  font-family: "Gill Sans";
-  font-weight: 100;
-  font-weight: bold;
-  text-decoration: underline;
-  text-align: start;
+  font-size: 1rem;
+  font-weight: 800;
+  text-align: end;
+  border: none;
   text-transform: capitalize;
 }
 
 /* style pour la page d'utilisateur */
 .echange-item {
+  height: 3em;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px;
-  margin-right: 40px;
-  padding: 10px;
-  width: 100%;
-  border-bottom: 0.5px solid #333;
-  margin-top: 25px;
+  margin: 30px 0px;
+  padding: 10px 20px;
+  border-radius: 30px;
+  color: black;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.20);
+  overflow: hidden;
+  transition: transform 0.4s ease;
+}
+
+.echange-item:hover {
+  transform: scale(1.01);
 }
 
 /* style pour la page d'utilisateur */
@@ -66,18 +69,12 @@
 }
 
 .btn-details-link a {
-  width: auto;
-  height: 40px;
-  padding: 0 20px;
-  display: inline-block;
-  align-content: center;
-  border-radius: 10px;
-  text-decoration: none;
+  display: flex;
+  width: 100%;
+  height: 100%;
   color: black;
   font-size: 0.9rem;
   font-weight: bold;
   text-transform: uppercase;
-  background-color: #54b3b1;
-  box-shadow: 0px 5px 6px 0px rgba(0, 0, 0, 0.25);
-  transition: transform 0.3s ease;
+  align-items: center;
 }

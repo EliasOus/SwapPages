@@ -2,14 +2,15 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding-bottom: 1rem;
+  padding-bottom: 1em;
+  margin-bottom: 2em;
   border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 /*style pour la page voir details de l'echange*/
 .brique-item {
   width: 8em;
-  height: 20em;
+  height: 21em;
   display: flex;
   flex-direction: column;
   margin: 20px;
@@ -69,10 +70,11 @@
   border: none;
 }
 
-/* style pour la page voir details d'echange */
-#prix-total {
-  margin: 20px;
+.description-item h3 {
+  margin-top: .5em;
+  font-size: .8rem;
 }
+
 
 #echange,
 #proposition {
@@ -103,6 +105,7 @@
 #btn-creer-proposition,
 .btn-details-link {
   text-align: center;
+  /* margin-top: 2em; */
 }
 
 .btn-details-link a,
@@ -130,11 +133,15 @@
 }
 
 .proposition-item {
-  margin: 20px 10px;
+  margin: 20px 0px;
   padding: 10px;
   background-color: #f1f1f1;
   border-radius: 8px;
-  box-shadow: 0px 0px 20px 0px #14532d57
+  box-shadow: 0px 0px 20px 0px #14532d57;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
 }
 
 .proposition-item ul {

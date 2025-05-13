@@ -21,6 +21,7 @@
           <div class="description-item">
             <h1>{{this.nom_brique}}</h1>
             <h2>{{this.authors}}</h2>
+            <h3>Quantite :  {{this.quantite}}</h3>
           </div>
         </div>
       {{/each}}
@@ -38,19 +39,14 @@
     <div id="liste-proposition">
       {{#each dbProposition}}
         <div class="proposition-item" data-index="{{this.id_proposition}}">
-          <ul>
-            <li>
-              <h4 class="nom-proposition">proposition : {{id_echange}} | {{this.id_proposition}}</h4>
-            </li>
-            <li><h4>Creer Par : {{this.nom_utilisateur_proposition}}  {{this.prenom_utilisateur_proposition}}</h4></li>
-            <li>
-              <div class="btn-details-link">
-                <a
-                  href="/proposition?id_proposition={{this.id_proposition}}"
-                  class="Details-link"
-                >détails</a>
-              </div></li>
-          </ul>
+          <h4 class="nom-proposition">proposition : {{id_echange}} | {{this.id_proposition}}</h4>
+          <h4>Creer Par : {{this.nom_utilisateur_proposition}}  {{this.prenom_utilisateur_proposition}}</h4>
+          <div class="btn-details-link">
+            <a
+              href="/proposition?id_proposition={{this.id_proposition}}"
+              class="Details-link"
+            >détails</a>
+          </div>
         </div>
       {{/each}}
     </div>

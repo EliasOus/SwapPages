@@ -10,12 +10,10 @@ const erreurRecherche = document.getElementById("erreur-recherche");
 export function afficherNomInvalide() {
   // Afficher le message d'erreur
   erreurNomEchange.style.color = "#FF0000";
-  erreurNomEchange.style.fontSize = "1rem";
+  erreurNomEchange.style.fontSize = ".8rem";
   erreurNomEchange.innerText =
     "Veuillez saisir un nom d'échange valide (entre 5 et 75 caractères).";
-  nomEchangeInput.style.outline = "none";
   nomEchangeInput.style.border = "2px solid #FF0000";
-  nomEchangeInput.focus();
 }
 
 /**
@@ -32,11 +30,11 @@ export function afficherNomValide() {
  */
 export function afficherQuantiteInvalide() {
   // Afficher le message d'erreur quantité
-
   briquesSelection.style.border = "2px solid #FF0000";
-  briquesSelection.style.borderRadius = "5px";
   erreurQuantite.style.color = "#FF0000";
-  erreurQuantite.style.fontSize = "1rem";
+  erreurQuantite.style.fontSize = ".8rem";
+  erreurQuantite.style.marginTop = "10px";
+  erreurQuantite.style.height = "auto";
   erreurQuantite.innerText =
     "Veuillez saisir une quantité valide (entre 1 et 200).";
 }
@@ -57,7 +55,8 @@ export function afficherRechercheInvalide() {
   // Afficher le message d'erreur quantité
   erreurRecherche.style.display = "block";
   erreurRecherche.style.color = "#FF0000";
-  erreurRecherche.style.fontSize = ".5rem";
+  erreurRecherche.style.fontSize = ".8rem";
+  erreurRecherche.style.height = "auto";
   erreurRecherche.innerText = "Veuillez saisir un titre valide";
 }
 /**

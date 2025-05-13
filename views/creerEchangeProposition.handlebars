@@ -1,47 +1,47 @@
 <section id="creer-{{type}}">
   <form id="form-creer-{{type}}" novalidate>
-    <label  for="nom-echange">{{paragraphe}} </label>
+    <h4  for="nom-echange">{{paragraphe}} </h4>
     <div id="input-form">
-      <div {{#unless creerEchange}}hidden{{/unless}}>
-        <input type="text" id="nom-echange" placeholder="Nom Echange" name="nom-echange" />
-        <p class="erreur-nom-echange"></p>
-      </div>
-      <div>
+    {{!-- <div id="input-form" class="{{#unless creerEchange}}hidden-class {{/unless}}"> --}}
+        <input type="text" id="nom-echange" placeholder="Nom Echange" name="nom-echange" {{#unless creerEchange}}hidden{{/unless}} />
         <button type="submit" id="creer{{type}}Btn">{{btnType}}</button>
-        <p class="erreur-quantite"></p>
-      </div>
     </div>
-    <h3>Ajouter des Briques</h3>
-    <div>
+    <p class="erreur-nom-echange"></p>
+    <h3>Ajouter des Livres</h3>
+    <div class="contenaire-recherche">
       <input type="text" id="recherche" placeholder="Recherche" name="Recherche" />
       <button type="button" id="rechercheBtn">Recherche</button>
-      <p id="erreur-recherche" style="display: none;"></p>
     </div>
+    <p id="erreur-recherche" style="display: none;"></p>
+    <p class="erreur-quantite"></p>
     <div id="briques-selection">
       {{!-- <div id="contenu-echange"></div> --}}
       {{#each dbBriques}}
         <div class="brique-item">
-          <img
-            {{#if this.image}}
-            src="{{this.image}}"
-            {{else}}
-            src="assets\imgs\pas_image.png"
-            {{/if}}
-            alt="{{this.nom_brique}}"
-            class="brique-image"
-          />
-          <label>{{this.nom_brique}}</label>
-          <label>Prix: {{this.valeur}} $</label>
-          <input
+          <div class="brique-image">
+            <img
+              {{#if this.image}}
+              src="{{this.image}}"
+              {{else}}
+              src="assets\imgs\pas_image.png"
+              {{/if}}
+              alt="{{this.nom_brique}}"
+            />
+            <div class="langue"><span>{{this.language}}</span></div>
+          </div>
+          <div class="description-item">
+            <h1>{{this.nom_brique}}</h1>
+            <h2>{{this.authors}}</h2>
+            <input
             type="number"
             min="0"
             max="200"
             required
             placeholder="Quantite"
             data-id="{{this.id_brique}}"
-            style="width: 90px;"
             value="0"
           />
+          </div>
         </div>
       {{/each}}
 
