@@ -9,7 +9,7 @@ async function deleteEchangeUtilisateur(event) {
   //recuperer la <DIV> de echange souhaiter suprime avec id_echange
   const indexSuprime = Number(event.currentTarget.dataset.idEchange);
   const echangeSuprime = document.querySelector(
-    `div[data-index="${indexSuprime}"]`
+    `li[data-index="${indexSuprime}"]`
   );
 
   //recuperer data

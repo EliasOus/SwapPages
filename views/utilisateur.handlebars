@@ -5,7 +5,7 @@
   </div>
   <ul class="btn-details-link">
     {{#each dbUtilisateur}}
-      <li class="echange-item">
+      <li class="echange-item" data-index = "{{this.id_echange}}">
         <a href="/echange?id_echange={{this.id_echange}}" class="details-link">
           {{this.nom_echange}}
         </a>
