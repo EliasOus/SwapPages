@@ -4,22 +4,22 @@
       <h2>Nom de l'echange : <span>{{dbInfo.nom_echange}}</span></h2>
       <h2 class="{{#if echange}}hidden-class{{/if}}">Proposé Par : {{dbInfo.nom_utilisateur_proposition}} {{dbInfo.prenom_utilisateur_proposition}}</h2>
     </div>
-    <div id="brique-items">
+    <div id="livre-items">
       {{#each dbEchangeProposition}}
-        <div class="brique-item">
-          <div class="brique-image">
+        <div class="livre-item">
+          <div class="livre-image">
             <img
               {{#if this.image}}
               src="{{this.image}}"
               {{else}}
               src="assets\imgs\pas_image.png"
               {{/if}}
-              alt="{{this.nom_brique}}"
+              alt="{{this.nom_livre}}"
             />
             <div class="langue"><span>{{this.language}}</span></div>
           </div>
           <div class="description-item">
-            <h1>{{this.nom_brique}}</h1>
+            <h1>{{this.nom_livre}}</h1>
             <h2>{{this.authors}}</h2>
             <h3>Quantite :  {{this.quantite}}</h3>
           </div>

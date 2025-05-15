@@ -33,19 +33,19 @@ async function createDatabase(connexion) {
             FOREIGN KEY(id_utilisateur) REFERENCES utilisateur(id_utilisateur)
         );
         
-        CREATE TABLE echange_brique (
+        CREATE TABLE echange_livre (
             id_echange INTEGER,
-            id_brique TEXT,
+            id_livre TEXT,
             quantite INTEGER NOT NULL,
-            PRIMARY KEY(id_echange, id_brique), 
+            PRIMARY KEY(id_echange, id_livre), 
             FOREIGN KEY(id_echange) REFERENCES echange(id_echange)
         );
         
-        CREATE TABLE proposition_brique (
+        CREATE TABLE proposition_livre (
             id_proposition INTEGER,
-            id_brique TEXT,
+            id_livre TEXT,
             quantite INTEGER NOT NULL,
-            PRIMARY KEY(id_proposition, id_brique), 
+            PRIMARY KEY(id_proposition, id_livre), 
             FOREIGN KEY(id_proposition) REFERENCES proposition(id_proposition)
         );
    

@@ -1,6 +1,6 @@
 const erreurQuantite = document.querySelector(".erreur-quantite");
 const erreurNomEchange = document.querySelector(".erreur-nom-echange");
-const briquesSelection = document.getElementById("briques-selection");
+const livresSelection = document.getElementById("livres-selection");
 const nomEchangeInput = document.getElementById("nom-echange");
 const erreurRecherche = document.getElementById("erreur-recherche");
 
@@ -30,7 +30,7 @@ export function afficherNomValide() {
  */
 export function afficherQuantiteInvalide() {
   // Afficher le message d'erreur quantité
-  briquesSelection.style.border = "2px solid #FF0000";
+  livresSelection.style.border = "2px solid #FF0000";
   erreurQuantite.style.color = "#FF0000";
   erreurQuantite.style.fontSize = ".8rem";
   erreurQuantite.style.marginTop = "10px";
@@ -45,7 +45,7 @@ export function afficherQuantiteInvalide() {
 export function afficherQuantiteValide() {
   // Retirer le message d'erreur
   erreurQuantite.innerText = "";
-  briquesSelection.style.border = "none";
+  livresSelection.style.border = "none";
 }
 
 /**

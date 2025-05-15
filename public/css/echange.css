@@ -1,4 +1,4 @@
-#brique-items {
+#livre-items {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -8,7 +8,7 @@
 }
 
 /*style pour la page voir details de l'echange*/
-.brique-item {
+.livre-item {
   width: 8em;
   height: 21em;
   display: flex;
@@ -18,7 +18,7 @@
 }
 
 /*style pour la page voir details de l'echange*/
-.brique-image {
+.livre-image {
   position: relative;
   width: auto;
   height: 60%;
@@ -26,7 +26,7 @@
   overflow: hidden;
 }
 
-.brique-image img {
+.livre-image img {
   height: 100%;
   width: 100%;
   object-fit: fill;

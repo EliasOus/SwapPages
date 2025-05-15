@@ -66,7 +66,7 @@
   gap: 10px;
 }
 
-#briques-selection {
+#livres-selection {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -74,7 +74,7 @@
 }
 
 /*style pour la page voir details de l'echange*/
-.brique-item {
+.livre-item {
   width: 8em;
   height: 20em;
   display: flex;
@@ -84,7 +84,7 @@
 }
 
 /*style pour la page voir details de l'echange*/
-.brique-image {
+.livre-image {
   position: relative;
   width: auto;
   height: 50%;
@@ -92,7 +92,7 @@
   overflow: hidden;
 }
 
-.brique-image img {
+.livre-image img {
   height: 100%;
   width: 100%;
   object-fit: fill;
@@ -139,7 +139,7 @@
 }
 
 /*style pour la page voir details de l'echange*/
-.brique-item input {
+.livre-item input {
   width: 100%;
   padding: 2px 0px 2px 5px;
   margin-top: 5px;

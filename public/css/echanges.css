@@ -55,7 +55,11 @@ a h3 {
   margin: 8px 0px;
 }
 
-.brique-image {
+.contenaire-img h4 {
+  text-transform: capitalize;
+}
+
+.livre-image {
   width: 5em;
   height: 7em;
 }

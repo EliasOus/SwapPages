@@ -1,6 +1,5 @@
-
 /**
- * function pour calculer le prix total des briques pour echange et propositions
+ * function pour calculer le prix total des livres pour echange et propositions
  * @param {Array} echangeProposition
  * @returns
  */
@@ -9,7 +8,7 @@ export function calculePrixTotal(echangeProposition) {
   let total = 0;
 
   for (let i = 0; i < echangeProposition.length; i++) {
-    total = echangeProposition[i].prix_brique * echangeProposition[i].quantite;
+    total = echangeProposition[i].prix_livre * echangeProposition[i].quantite;
     prixTotal += total;
   }
 
@@ -18,8 +17,3 @@ export function calculePrixTotal(echangeProposition) {
 
   return prixTotal;
 }
-
-
-
-
-

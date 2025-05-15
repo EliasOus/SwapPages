@@ -62,8 +62,11 @@ nav input {
   gap: 6px;
   flex-direction: column;
   align-items: center;
-
   font-weight: 700;
+}
+
+#utilisateur h5{
+  text-transform: capitalize;
 }
 
 /* style pour le logo utilisateur de header */

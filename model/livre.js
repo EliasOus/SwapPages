@@ -8,20 +8,20 @@ import axios from "axios";
 
 export async function getEchanges() {
   const echange = await connexion.all(`
-    SELECT e.id_echange, u.id_utilisateur, eb.id_brique, e.nom_echange, u.nom AS nom_utilisateur, u.prenom AS prenom_utilisateur
-    FROM echange_brique eb
+    SELECT e.id_echange, u.id_utilisateur, eb.id_livre, e.nom_echange, u.nom AS nom_utilisateur, u.prenom AS prenom_utilisateur
+    FROM echange_livre eb
     JOIN echange e
     ON eb.id_echange = e.id_echange
     JOIN utilisateur u 
     ON e.id_utilisateur = u.id_utilisateur;
     `);
 
-  // Regroupe les échanges par id_echange et rassemble les id_brique en tableau.
+  // Regroupe les échanges par id_echange et rassemble les id_livre en tableau.
   const map = new Map();
   for (const item of echange) {
     const existing = map.get(item.id_echange);
     if (existing) {
-      existing.id_brique.push(item.id_brique);
+      existing.id_livre.push(item.id_livre);
     } else {
       map.set(item.id_echange, {
         id_echange: item.id_echange,
@@ -29,7 +29,7 @@ export async function getEchanges() {
         nom_echange: item.nom_echange,
         nom_utilisateur: item.nom_utilisateur,
         prenom_utilisateur: item.prenom_utilisateur,
-        id_brique: [item.id_brique], // tableau dès le départ
+        id_livre: [item.id_livre], // tableau dès le départ
       });
     }
   }
@@ -41,9 +41,9 @@ export async function getEchanges() {
     echangesTableau.map(async (e) => {
       try {
         const imgLinks = [];
-        for (let i = 0; i < e.id_brique.length; i++) {
+        for (let i = 0; i < e.id_livre.length; i++) {
           const images = await axios.get(
-            `https://www.googleapis.com/books/v1/volumes/${e.id_brique[i]}`
+            `https://www.googleapis.com/books/v1/volumes/${e.id_livre[i]}`
           );
 
           const imgLink = images.data.volumeInfo.imageLinks.thumbnail || null;
@@ -90,7 +90,7 @@ export async function getEchangeUtilisateur(id_utilisateur) {
 }
 
 /**
- * Fonction pour supprimer un echange et supprimer aussi l'élément dans la table echange_brique.
+ * Fonction pour supprimer un echange et supprimer aussi l'élément dans la table echange_livre.
  * Il faut également supprimer toutes les propositions qui appartiennent à cet échange.
  * @param {*} id_echange
  */
@@ -104,14 +104,14 @@ export async function deleteEchangeUtilisateur(id_echange) {
 
   await connexion.run(
     `DELETE
-    FROM echange_brique
+    FROM echange_livre
     WHERE id_echange = ?;`,
     [id_echange]
   );
 
   await connexion.run(
     `DELETE
-    FROM proposition_brique
+    FROM proposition_livre
     WHERE id_proposition IN (
     SELECT id_proposition
     FROM proposition
@@ -131,15 +131,15 @@ export async function deleteEchangeUtilisateur(id_echange) {
  * Fonction pour afficher toutes les livres
  * @returns
  */
-export async function getBriques(titre) {
+export async function getlivres(titre) {
   try {
     const response = await axios.get(
       `https://www.googleapis.com/books/v1/volumes?q=${titre}&maxResults=40`
     );
 
     const livres = response.data.items.map((livre) => ({
-      id_brique: livre.id,
-      nom_brique: livre.volumeInfo.title,
+      id_livre: livre.id,
+      nom_livre: livre.volumeInfo.title,
       couleur: "noir_test",
       valeur: 5,
       image: livre.volumeInfo.imageLinks?.thumbnail || null,
@@ -156,7 +156,7 @@ export async function getBriques(titre) {
 
 /**
  * Fonction pour créer un échange dans la table echange.
- * Retourne l'id de l'échange pour l'utiliser dans la création d'une echange_brique
+ * Retourne l'id de l'échange pour l'utiliser dans la création d'une echange_livre
  * @param {*} id_utilisateur
  * @param {*} nom_echange
  * @returns
@@ -171,26 +171,26 @@ async function creeEchange(id_utilisateur, nom_echange) {
 }
 
 /**
- * Fonction pour ajouter les briques et la quantité de chaque brique dans un echange.
+ * Fonction pour ajouter les livres et la quantité de chaque livre dans un echange.
  * @param {*} id_utilisateur
  * @param {*} nom_echange
- * @param {*} id_brique
+ * @param {*} id_livre
  * @param {*} quantite
  * @returns
  */
-export async function creeEchangeBrique(
+export async function creeEchangelivre(
   id_utilisateur,
   nom_echange,
-  id_briques,
+  id_livres,
   quantites
 ) {
   const idEchange = await creeEchange(id_utilisateur, nom_echange);
 
-  for (let i = 0; i < id_briques.length; i++) {
-    const idEchangeBrique = await connexion.run(
-      `INSERT INTO echange_brique (id_echange, id_brique, quantite) 
+  for (let i = 0; i < id_livres.length; i++) {
+    const idEchangelivre = await connexion.run(
+      `INSERT INTO echange_livre (id_echange, id_livre, quantite) 
         VALUES (?, ?, ?);`,
-      [idEchange, id_briques[i], quantites[i]]
+      [idEchange, id_livres[i], quantites[i]]
     );
   }
 
@@ -198,7 +198,7 @@ export async function creeEchangeBrique(
 }
 
 /**
- * Fonction pour afficher toutes les briques qui se trouvent dans une echange.
+ * Fonction pour afficher toutes les livres qui se trouvent dans une echange.
  * @param {*} id_echange
  * @returns
  */
@@ -206,7 +206,7 @@ export async function getEchange(id_echange) {
   const resultat = await connexion.all(
     `SELECT
         e.id_echange,
-        id_brique,
+        id_livre,
         e.id_utilisateur,
         e.nom_echange,
         u.nom AS nom_utilisateur,
@@ -214,7 +214,7 @@ export async function getEchange(id_echange) {
       FROM echange e
       JOIN utilisateur u
         ON e.id_utilisateur = u.id_utilisateur
-      JOIN echange_brique eb
+      JOIN echange_livre eb
         ON e.id_echange = eb.id_echange
       WHERE e.id_echange = ?;`,
     [id_echange]
@@ -224,14 +224,14 @@ export async function getEchange(id_echange) {
     resultat.map(async (livre) => {
       try {
         const datas = await axios.get(
-          `https://www.googleapis.com/books/v1/volumes/${livre.id_brique}`
+          `https://www.googleapis.com/books/v1/volumes/${livre.id_livre}`
         );
 
         const info = datas.data.volumeInfo;
 
         return {
           ...livre,
-          nom_brique: info.title || null,
+          nom_livre: info.title || null,
           image: info.imageLinks?.thumbnail || null,
           language: info.language || null,
           authors: info.authors?.[0] || null,
@@ -239,12 +239,12 @@ export async function getEchange(id_echange) {
       } catch (error) {
         // En cas d’erreur (ex: ID invalide)
         console.error(
-          `Erreur lors de la récupération du livre ${livre.id_brique}:`,
+          `Erreur lors de la récupération du livre ${livre.id_livre}:`,
           error.message
         );
         return {
           ...livre,
-          nom_brique: null,
+          nom_livre: null,
           image: null,
           language: null,
           authors: null,
@@ -272,7 +272,7 @@ export async function getNomUtilisateur(id_utilisateur) {
 }
 
 /**
- * function pour afficher toutes les briques qui se trouvent dans une proposition.
+ * function pour afficher toutes les livres qui se trouvent dans une proposition.
  * @param {Number} id_proposition
  * @returns
  */
@@ -283,12 +283,12 @@ export async function getProposition(id_proposition) {
           e.id_echange,
           e.id_utilisateur AS id_utilisateur_echange,
           p.id_utilisateur AS id_utilisateur_proposition,
-          id_brique,
+          id_livre,
           e.nom_echange,
           u.nom AS nom_utilisateur_proposition,
           u.prenom AS prenom_utilisateur_proposition,
           quantite
-        FROM proposition_brique pb
+        FROM proposition_livre pb
         JOIN proposition p
         ON pb.id_proposition = p.id_proposition
         JOIN echange e
@@ -303,14 +303,14 @@ export async function getProposition(id_proposition) {
     resultat.map(async (livre) => {
       try {
         const datas = await axios.get(
-          `https://www.googleapis.com/books/v1/volumes/${livre.id_brique}`
+          `https://www.googleapis.com/books/v1/volumes/${livre.id_livre}`
         );
 
         const info = datas.data.volumeInfo;
 
         return {
           ...livre,
-          nom_brique: info.title || null,
+          nom_livre: info.title || null,
           image: info.imageLinks?.thumbnail || null,
           language: info.language || null,
           authors: info.authors?.[0] || null,
@@ -318,12 +318,12 @@ export async function getProposition(id_proposition) {
       } catch (error) {
         // En cas d’erreur (ex: ID invalide)
         console.error(
-          `Erreur lors de la récupération du livre ${livre.id_brique}:`,
+          `Erreur lors de la récupération du livre ${livre.id_livre}:`,
           error.message
         );
         return {
           ...livre,
-          nom_brique: null,
+          nom_livre: null,
           image: null,
           language: null,
           authors: null,
@@ -363,7 +363,7 @@ export async function getPropositions(id_echange) {
 
 /**
  * Fonction pour créer une proposition dans la table proposition.
- * Retourne l'id de la proposition pour l'utiliser dans la création d'une proposition_brique.
+ * Retourne l'id de la proposition pour l'utiliser dans la création d'une proposition_livre.
  * @param {Number} id_echange
  * @param {Number} id_utilisateur
  * @returns
@@ -378,26 +378,26 @@ async function creeProposition(id_echange, id_utilisateur) {
 }
 
 /**
- * Fonction pour ajouter les briques et la quantité de chaque brique dans une proposition.
+ * Fonction pour ajouter les livres et la quantité de chaque livre dans une proposition.
  * @param {Number} id_utilisateur
  * @param {Number} id_echange
- * @param {Array} id_briques
+ * @param {Array} id_livres
  * @param {Array} quantites
  * @returns
  */
-export async function creePropositionBrique(
+export async function creePropositionlivre(
   id_utilisateur,
   id_echange,
-  id_briques,
+  id_livres,
   quantites
 ) {
   const idProposition = await creeProposition(id_echange, id_utilisateur);
 
-  for (let i = 0; i < id_briques.length; i++) {
+  for (let i = 0; i < id_livres.length; i++) {
     const resultat = await connexion.run(
-      `INSERT INTO proposition_brique (id_proposition, id_brique, quantite)
+      `INSERT INTO proposition_livre (id_proposition, id_livre, quantite)
       VALUES (?,?,?);`,
-      [idProposition, id_briques[i], quantites[i]]
+      [idProposition, id_livres[i], quantites[i]]
     );
   }
   return idProposition;

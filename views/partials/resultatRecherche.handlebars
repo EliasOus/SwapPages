@@ -1,18 +1,18 @@
-{{#each dbBriques}}
-  <div class="brique-item">
-    <div class="brique-image">
+{{#each dblivres}}
+  <div class="livre-item">
+    <div class="livre-image">
       <img
         {{#if this.image}}
         src="{{this.image}}"
         {{else}}
         src="assets\imgs\pas_image.png"
         {{/if}}
-        alt="{{this.nom_brique}}"
+        alt="{{this.nom_livre}}"
       />
       <div class="langue"><span>{{this.language}}</span></div>
     </div>
     <div class="description-item">
-      <h1>{{this.nom_brique}}</h1>
+      <h1>{{this.nom_livre}}</h1>
       <h2>{{this.authors}}</h2>
       <input
       type="number"
@@ -20,7 +20,7 @@
       max="200"
       required
       placeholder="Quantite"
-      data-id="{{this.id_brique}}"
+      data-id="{{this.id_livre}}"
       value="0"
     />
     </div>

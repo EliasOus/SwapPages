@@ -1,7 +1,7 @@
 {
-  "name": "briqueswap",
+  "name": "SwapPages",
   "version": "1.0.0",
-  "description": "la plateforme d’échange dédiée aux passionnés de construction et aux collectionneurs de briques en tout genre",
+  "description": "la plateforme d’échange dédiée aux passionnés de construction et aux collectionneurs de livres en tout genre",
   "main": "server.js",
   "type": "module",
   "scripts": {

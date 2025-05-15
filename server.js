@@ -16,16 +16,16 @@ import {
   getEchanges,
   getEchangeUtilisateur,
   deleteEchangeUtilisateur,
-  getBriques,
-  creeEchangeBrique,
+  getlivres,
+  creeEchangelivre,
   getEchange,
   getProposition,
   getPropositions,
-  creePropositionBrique,
-} from "./model/brique.js";
+  creePropositionlivre,
+} from "./model/livre.js";
 import { calculePrixTotal } from "./public/js/calculePrixTotal.js";
 import {
-  validerIdBrique,
+  validerIdlivre,
   validerIdEchange,
   validerIdUtilisateur,
   validerNomEchange,
@@ -140,7 +140,7 @@ app.get("/", async (request, response) => {
   const dbEchanges = await getEchanges();
 
   response.render("echanges", {
-    titre: "Brique | Accueil",
+    titre: "livre | Accueil",
     styles: ["/css/echanges.css"],
     dbEchanges: dbEchanges,
 
@@ -159,8 +159,6 @@ app.get(
     const id_utilisateur = request.user.id_utilisateur;
     const dbUtilisateur = await getEchangeUtilisateur(id_utilisateur);
 
-    console.log(dbUtilisateur);
-
     response.render("utilisateur", {
       titre: "Utilisateur",
       styles: ["/css/utilisateur.css"],
@@ -178,7 +176,7 @@ app.get(
  */
 app.get("/apropos", (request, response) => {
   response.render("apropos", {
-    titre: "Brique | À propos",
+    titre: "livre | À propos",
     styles: ["/css/a-propos.css"],
 
     //variable pour gerer les utilisateur
@@ -191,7 +189,7 @@ app.get("/apropos", (request, response) => {
  */
 app.get("/connexion", utilisateurPasConnecteClient, (request, response) => {
   response.render("authentification", {
-    titre: "Brique | Connexion",
+    titre: "livre | Connexion",
     styles: ["/css/authentification.css"],
     scripts: ["/js/connexion.js"],
     type: "connexion",
@@ -211,7 +209,7 @@ app.get("/connexion", utilisateurPasConnecteClient, (request, response) => {
  */
 app.get("/inscription", utilisateurPasConnecteClient, (request, response) => {
   response.render("authentification", {
-    titre: "Brique | Inscription",
+    titre: "livre | Inscription",
     styles: ["/css/authentification.css"],
     scripts: ["/js/inscription.js"],
     type: "inscription",
@@ -236,17 +234,17 @@ app.get(
   utilisateurConnecteClient,
   async (request, response) => {
     const titre = "management";
-    const dbBriques = await getBriques(titre);
+    const dblivres = await getlivres(titre);
 
     response.render("creerEchangeProposition", {
-      titre: "Brique | Creer Proposition",
+      titre: "livre | Creer Proposition",
       styles: ["/css/creerEchangeProposition.css"],
       scripts: [
         "/js/creerEchangeProposition.js",
         "/js/validationCreerEchange.js",
         "/js/afficherMessageErreur.js",
       ],
-      dbBriques: dbBriques,
+      dblivres: dblivres,
       type: "proposition",
       btnType: "Creer Proposition",
       paragraphe: "Creer Proposition : ",
@@ -265,17 +263,17 @@ app.get(
   utilisateurConnecteClient,
   async (request, response) => {
     const titre = "management";
-    const dbBriques = await getBriques(titre);
+    const dblivres = await getlivres(titre);
 
     response.render("creerEchangeProposition", {
-      titre: "Brique | Creer Echange",
+      titre: "livre | Creer Echange",
       styles: ["/css/creerEchangeProposition.css"],
       scripts: [
         "/js/creerEchangeProposition.js",
         "/js/validationCreerEchange.js",
         "/js/afficherMessageErreur.js",
       ],
-      dbBriques: dbBriques,
+      dblivres: dblivres,
       type: "echange",
       btnType: "Creer Echange",
       creerEchange: true,
@@ -295,7 +293,7 @@ app.get(
   utilisateurConnecteClient,
   async (request, response) => {
     const titre = request.query.titre;
-    const dbBriques = await getBriques(titre);
+    const dblivres = await getlivres(titre);
 
     response.render(
       "partials/resultatRecherche",
@@ -307,7 +305,7 @@ app.get(
           "/js/validationCreerEchange.js",
           "/js/afficherMessageErreur.js",
         ],
-        dbBriques: dbBriques,
+        dblivres: dblivres,
       },
       (err, html) => {
         if (err) {
@@ -321,7 +319,7 @@ app.get(
 
 /**
  * Page handlebars pour la page proposition
- * la page pour afficher les briques pour chaque proposition
+ * la page pour afficher les livres pour chaque proposition
  */
 app.get(
   "/proposition",
@@ -340,11 +338,11 @@ app.get(
           return;
         }
 
-        //calculer le prix total des briques
+        //calculer le prix total des livres
         const prixTotal = calculePrixTotal(dbProposition);
 
         response.render("echangeProposition", {
-          titre: "Brique | Proposition",
+          titre: "livre | Proposition",
           styles: ["/css/echange.css"],
           // scripts: ["/js/echange.js"],
           dbEchangeProposition: dbProposition,
@@ -374,9 +372,6 @@ app.get("/echange", async (request, response) => {
     const dbEchange = await getEchange(request.query.id_echange);
     const dbProposition = await getPropositions(request.query.id_echange);
 
-    console.log("/////////////////////////////");
-    console.log(dbEchange); //////////////////////////////////////////////////////////////
-
     if (dbEchange.length > 0) {
       //verification est ce que l'utilisateur est connecte
       //et si l’échange n’a pas été créé par l’utilisateur lui-meme
@@ -391,11 +386,11 @@ app.get("/echange", async (request, response) => {
         }
       }
 
-      //calculer le prix total des briques
+      //calculer le prix total des livres
       const prixTotal = calculePrixTotal(dbEchange);
 
       response.render("echangeProposition", {
-        titre: "Brique | Echange",
+        titre: "livre | Echange",
         styles: ["/css/echange.css"],
         scripts: ["/js/echangeProposition.js"],
         dbEchangeProposition: dbEchange,
@@ -446,7 +441,7 @@ app.delete(
           return;
         }
 
-        //supprimer un echange et supprimer aussi l'élément dans la table echange_brique.
+        //supprimer un echange et supprimer aussi l'élément dans la table echange_livre.
         //Il faut également supprimer toutes les propositions qui appartiennent à cet échange.
         const index = await deleteEchangeUtilisateur(id_echange);
         response.status(200).end();
@@ -460,29 +455,29 @@ app.delete(
 );
 
 /**
- * API pour cree une echange et ajouter des brique dans l'echange
+ * API pour cree une echange et ajouter des livre dans l'echange
  */
 app.post(
-  "/api/echange_brique",
+  "/api/echange_livre",
   utilisateurConnecte,
   async (request, response) => {
     //l'utilisateur connecter c'est le meme qui va creer echange
     const id_utilisateur = request.user.id_utilisateur;
     const nom_echange = request.body.nom_echange;
-    const id_briques = request.body.id_briques;
+    const id_livres = request.body.id_livres;
     const quantites = request.body.quantites;
 
-    // verifier la Validation de l'id_utilisateru et id_brique et nom echange et quantites
+    // verifier la Validation de l'id_utilisateru et id_livre et nom echange et quantites
     if (
       validerIdUtilisateur(id_utilisateur) &&
-      validerIdBrique(id_briques) &&
+      validerIdlivre(id_livres) &&
       validerNomEchange(nom_echange) &&
       validerQuantite(quantites)
     ) {
-      const resltat = await creeEchangeBrique(
+      const resltat = await creeEchangelivre(
         id_utilisateur,
         nom_echange,
-        id_briques,
+        id_livres,
         quantites
       );
       response.status(201).json({ id_echange: resltat });
@@ -496,20 +491,20 @@ app.post(
  * creer une proposition pour un echange
  */
 app.post(
-  "/api/proposition_brique",
+  "/api/proposition_livre",
   utilisateurConnecte,
   async (request, response) => {
     //l'utilisateur connecter est le même utilisateur qui va creer proposition
     const id_utilisateur = request.user.id_utilisateur;
     const id_echange = request.body.id_echange;
-    const id_briques = request.body.id_briques;
+    const id_livres = request.body.id_livres;
     const quantites = request.body.quantites;
 
-    // verifier la Validation de l'id_utilisateru er id_brique et quantites
+    // verifier la Validation de l'id_utilisateru er id_livre et quantites
     if (
       validerIdUtilisateur(id_utilisateur) &&
       validerIdEchange(id_echange) &&
-      validerIdBrique(id_briques) &&
+      validerIdlivre(id_livres) &&
       validerQuantite(quantites)
     ) {
       // appele la function pour rescuper un echange avec un id_echange
@@ -527,10 +522,10 @@ app.post(
         return;
       }
 
-      const resltat = await creePropositionBrique(
+      const resltat = await creePropositionlivre(
         id_utilisateur,
         id_echange,
-        id_briques,
+        id_livres,
         quantites
       );
       response.status(201).json({ id_proposition: resltat });

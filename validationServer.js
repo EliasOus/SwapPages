@@ -44,15 +44,15 @@ export function validerIdUtilisateur(id_utilisateur) {
 }
 
 /**
- * function pour valide id brique cote serveur
- * @param {Array} id_brique
+ * function pour valide id livre cote serveur
+ * @param {Array} id_livre
  * @returns
  */
-export function validerIdBrique(id_brique) {
-  if (!Array.isArray(id_brique)) {
+export function validerIdlivre(id_livre) {
+  if (!Array.isArray(id_livre)) {
     return false;
   }
-  for (let id of id_brique) {
+  for (let id of id_livre) {
     if (typeof id !== "string" || id.trim() === "") {
       return false;
     }
