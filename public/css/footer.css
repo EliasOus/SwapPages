@@ -5,10 +5,14 @@ footer {
   justify-content: center;
   align-items: end;
   padding-bottom: 1rem;
-  margin-top: 20px;
   background-color: #fff2e0;
   color: black;
   text-align: center;
   font-size: .8rem;
+  font-weight: 700;
+}
+
+footer a {
+  color: #14532d;
   font-weight: 700;
 }

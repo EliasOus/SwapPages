@@ -198,7 +198,7 @@ app.get("/connexion", utilisateurPasConnecteClient, (request, response) => {
     btnType: "Se Connecter",
     // Variable pour changer le type de texte dans le bouton qui alterne entre connexion et inscription
     btnswitch: "inscription",
-    btnTitre: "Inscrivez-vous",
+    btnTitre: "S'inscrire",
     paragraphe: "Vous n’avez pas de compte ?",
 
     //variable pour gerer les utilisateur
@@ -218,7 +218,7 @@ app.get("/inscription", utilisateurPasConnecteClient, (request, response) => {
     btnType: "S’inscrire",
     // Variable pour changer le type de texte dans le bouton qui alterne entre connexion et inscription
     btnswitch: "Connexion",
-    btnTitre: "Connectez-Vous",
+    btnTitre: "Se connecter",
     paragraphe: "Vous avez un compte ?",
     //ajouter cette variable pour afficher ou supprime les input nom et prenom
     inscription: true,

@@ -1,4 +1,95 @@
 <div class="container">
+  
+  <div class="image">
+    <div class="overlay"></div>
+    <a class="btn-switch" href="/{{btnswitch}}">{{btnTitre}}</a>
+    <img src="/assets/bg-biblio.jpg" alt="image bibliotheque">
+    <div class="image-hero">
+      <h1>Bienvenue dans <span>l'univers du livre</span></h1>
+      <p>
+        Échangez, partagez et découvrez des livres avec une communauté de lecteurs passionnés.
+      </p>
+      <p>
+        Donnez une seconde vie aux ouvrages que vous possédez, explorez de nouvelles histoires et laissez-vous inspirer par les lectures des autres.
+      </p>
+      <h2>Rejoignez l’aventure et vivez la passion du livre autrement.</h2>
+    <p class="date">Disponible dès maintenant</p>
+    {{#if inscription}}
+      <a href="/Connexion" class="hero-btn">Rejoindre la communauté</a>
+    {{else}}
+      <a href="/inscription" class="hero-btn">Rejoindre la communauté</a>
+    {{/if}}
+    
+    </div>
+  </div>
+  <div class="auth">
+    <div class="section-hero">
+      <h1>Bienvenue !</h1>
+      {{#if inscription}}
+        <h2>Inscrivez-vous en remplissant les informations ci-dessous.</h2>
+      {{else}}
+        <h2>Connectez-vous en saisissant les informations ci-dessous.</h2>
+      {{/if}}
+    </div>
+    <form id="form-auth" novalidate>
+      <div class="section-input" {{#unless inscription}}hidden{{/unless}}>
+        <h1>Nom :</h1>
+        <input
+        type="text"
+        placeholder="Nom"
+        id="input-nom"
+        required
+        minlength="3"
+        maxlength="20"
+      />
+      </div>
+      <div class="erreur" id="erreur-nom"></div>
+      <div class="section-input" {{#unless inscription}}hidden{{/unless}}>
+        <h1>Prenom :</h1>
+        <input
+        type="text"
+        placeholder="Prenom"
+        id="input-prenom"
+        required
+        minlength="3"
+        maxlength="20"
+      />
+      </div>
+      <div class="erreur" id="erreur-prenom"></div>
+      <div class="section-input">
+        <h1>Email :</h1>
+        <input
+        type="email"
+        placeholder="Email"
+        id="input-courriel"
+        required
+        minlength="6"
+        maxlength="30"
+      />
+      </div>
+      <div  class="erreur" id="erreur-courriel"></div>
+      <div class="section-input">
+        <h1>Mot De Passe :</h1>
+        <input
+        type="password"
+        placeholder="Mot De Passe"
+        id="input-motdepasse"
+        required
+        minlength="6"
+        maxlength="30"
+      /></div>
+      <div class="erreur" id="erreur-mot-de-passe"></div>
+
+      <div id="btn-connecter">
+        <input type="submit" value="{{btnType}}"/>
+      </div>
+
+      <div class="erreur" style="margin-top: 1em;"  id="erreur-auth"></div>
+    </form>
+  </div>
+</div>
+
+{{!-- <div class="container">
   <div class="auth-logo">
     <h3>{{type}}</h3>
     <span></span>
@@ -58,4 +149,4 @@
       <div id="erreur-auth"></div>
     </form>
   </div>
-</div>
+</div> --}}

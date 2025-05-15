@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+h1 {
+  font-family: 'Playfair Display', serif;
+}
+
 /* style pour le body de toute les pages*/
 body {
   font-family: Arial, sans-serif;
