@@ -659,16 +659,25 @@ app.get("/api/livres", async (request, response) => {
 
 // Démarrer le serveur
 if (process.env.NODE_ENV === "production") {
-  console.log("Serveur démarré:");
+  console.log("Serveur démarré (mode production):");
   console.log("http://localhost:" + process.env.PORT);
   app.listen(process.env.PORT);
 } else {
-  const credentials = {
-    cert: await readFile("./security/localhost.cert"),
-    key: await readFile("./security/localhost.key"),
-  };
+  try {
+    const credentials = {
+      cert: await readFile("./security/localhost.cert"),
+      key: await readFile("./security/localhost.key"),
+    };
 
-  console.log("Serveur démarré:");
-  console.log("https://localhost:" + process.env.PORT);
-  https.createServer(credentials, app).listen(process.env.PORT);
+    console.log("Serveur démarré (mode développement avec HTTPS):");
+    console.log("https://localhost:" + process.env.PORT);
+    https.createServer(credentials, app).listen(process.env.PORT);
+  } catch (error) {
+    console.error(
+      "Impossible de démarrer le serveur HTTPS : certificats manquants."
+    );
+    console.log("Démarrage du serveur en HTTP pour le développement.");
+    console.log("http://localhost:" + process.env.PORT);
+    app.listen(process.env.PORT);
+  }
 }
