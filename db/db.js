@@ -37,6 +37,10 @@ async function createDatabase(connexion) {
             id_echange INTEGER,
             id_livre TEXT,
             quantite INTEGER NOT NULL,
+            titre_livre TEXT,
+            authors TEXT,
+            language Text,
+            lien_image TEXT,
             PRIMARY KEY(id_echange, id_livre), 
             FOREIGN KEY(id_echange) REFERENCES echange(id_echange)
         );
@@ -44,6 +48,10 @@ async function createDatabase(connexion) {
         CREATE TABLE proposition_livre (
             id_proposition INTEGER,
             id_livre TEXT,
+            titre_livre TEXT,
+            authors TEXT,
+            language Text,
+            lien_image TEXT,
             quantite INTEGER NOT NULL,
             PRIMARY KEY(id_proposition, id_livre), 
             FOREIGN KEY(id_proposition) REFERENCES proposition(id_proposition)
@@ -65,3 +73,12 @@ if (IS_NEW) {
 }
 
 export { connexion };
+
+
+// CREATE TABLE echange_livre (
+//   id_echange INTEGER,
+//   id_livre TEXT,
+//   quantite INTEGER NOT NULL,
+//   PRIMARY KEY(id_echange, id_livre), 
+//   FOREIGN KEY(id_echange) REFERENCES echange(id_echange)
+// );

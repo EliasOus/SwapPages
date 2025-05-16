@@ -14,6 +14,10 @@ import {
 
 let id_livres = [];
 let quantites = [];
+let titreLivres = [];
+let authors = [];
+let languages = [];
+let lienImages = [];
 let validationQuantites = [];
 let nomEchangeValide;
 let quantiteValide;
@@ -39,8 +43,6 @@ function verifierNomEchange(nomEchange) {
   }
 }
 
-// id_livres = [];
-// quantites = [];
 /**
  * function pour verifier la quentite des livres cote client
  * @returns
@@ -77,9 +79,21 @@ export function verifierQuantite(livres, erreurMessage = true) {
     return false;
   } else {
     validationQuantites.forEach((validationQuantite) => {
+      // Récupérer l'ID du livre depuis l'attribut data-id
+      const idValidationLivre = validationQuantite.getAttribute("data-id");
+
       // Ajouter les données aux tableaux
-      id_livres.push(validationQuantite.getAttribute("data-id"));
+      id_livres.push(idValidationLivre);
       quantites.push(Number(validationQuantite.value));
+
+      // Récupérer le div parent correspondant
+      const div = validationQuantite.closest(".livre-item");
+
+      titreLivres.push(div.querySelector('.description-item h1').textContent)
+      authors.push(div.querySelector('.description-item h2').textContent)
+      languages.push(div.querySelector('.langue span').textContent)
+      lienImages.push(div.querySelector('.livre-image img').getAttribute('src'))
+
     });
   }
   return true;
@@ -107,6 +121,10 @@ async function creerEchangeServer(event) {
       nom_echange: nomEchange.value,
       id_livres: id_livres,
       quantites: quantites,
+      titre_livres: titreLivres,
+      authors: authors,
+      languages: languages,
+      lien_images: lienImages,
     };
 
     const response = await fetch("/api/echange_livre", {
@@ -150,6 +168,10 @@ async function creerPropositionServer(event) {
       id_echange: Number(idEchange),
       id_livres: id_livres,
       quantites: quantites,
+      titre_livres: titreLivres,
+      authors: authors,
+      languages: languages,
+      lien_images: lienImages,
     };
 
     const response = await fetch("/api/proposition_livre", {

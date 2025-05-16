@@ -139,6 +139,10 @@ function utilisateurPasConnecteClient(request, response, next) {
 app.get("/", async (request, response) => {
   const dbEchanges = await getEchanges();
 
+  
+  console.log("/////////////");
+  console.log(dbEchanges);
+
   response.render("echanges", {
     titre: "livre | Accueil",
     styles: ["/css/echanges.css"],
@@ -466,6 +470,10 @@ app.post(
     const nom_echange = request.body.nom_echange;
     const id_livres = request.body.id_livres;
     const quantites = request.body.quantites;
+    const titre_livres = request.body.titre_livres;
+    const authors = request.body.authors;
+    const languages = request.body.languages;
+    const lien_images = request.body.lien_images;
 
     // verifier la Validation de l'id_utilisateru et id_livre et nom echange et quantites
     if (
@@ -478,8 +486,13 @@ app.post(
         id_utilisateur,
         nom_echange,
         id_livres,
-        quantites
+        quantites,
+        titre_livres,
+        authors,
+        languages,
+        lien_images
       );
+
       response.status(201).json({ id_echange: resltat });
     } else {
       response.status(400).end();
@@ -499,6 +512,10 @@ app.post(
     const id_echange = request.body.id_echange;
     const id_livres = request.body.id_livres;
     const quantites = request.body.quantites;
+    const titre_livres = request.body.titre_livres;
+    const authors = request.body.authors;
+    const languages = request.body.languages;
+    const lien_images = request.body.lien_images;
 
     // verifier la Validation de l'id_utilisateru er id_livre et quantites
     if (
@@ -526,7 +543,11 @@ app.post(
         id_utilisateur,
         id_echange,
         id_livres,
-        quantites
+        quantites,
+        titre_livres,
+        authors,
+        languages,
+        lien_images
       );
       response.status(201).json({ id_proposition: resltat });
     } else {
