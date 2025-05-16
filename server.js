@@ -23,7 +23,7 @@ import {
   getPropositions,
   creePropositionlivre,
 } from "./model/livre.js";
-import { calculePrixTotal } from "./public/js/calculePrixTotal.js";
+
 import {
   validerIdlivre,
   validerIdEchange,
@@ -138,10 +138,6 @@ function utilisateurPasConnecteClient(request, response, next) {
  */
 app.get("/", async (request, response) => {
   const dbEchanges = await getEchanges();
-
-  
-  console.log("/////////////");
-  console.log(dbEchanges);
 
   response.render("echanges", {
     titre: "livre | Accueil",
@@ -342,15 +338,11 @@ app.get(
           return;
         }
 
-        //calculer le prix total des livres
-        const prixTotal = calculePrixTotal(dbProposition);
-
         response.render("echangeProposition", {
           titre: "livre | Proposition",
           styles: ["/css/echange.css"],
           // scripts: ["/js/echange.js"],
           dbEchangeProposition: dbProposition,
-          prixTotal: prixTotal,
 
           // Récupère le premier proposition et le stocke dans dbNomEchange.
           // Ensuite, on peut accéder à le nom echange à travers dbNomEchange.nom_echange.
@@ -390,15 +382,11 @@ app.get("/echange", async (request, response) => {
         }
       }
 
-      //calculer le prix total des livres
-      const prixTotal = calculePrixTotal(dbEchange);
-
       response.render("echangeProposition", {
         titre: "livre | Echange",
         styles: ["/css/echange.css"],
         scripts: ["/js/echangeProposition.js"],
         dbEchangeProposition: dbEchange,
-        prixTotal: prixTotal,
         id_echange: request.query.id_echange,
 
         // Récupère le premier échange et le stocke dans dbInfo.

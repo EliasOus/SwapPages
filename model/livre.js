@@ -460,7 +460,7 @@ export async function getProposition(id_proposition) {
           pb.quantite,
           pb.titre_livre,
           pb.authors,
-          pb.langage,
+          pb.language,
           pb.lien_image
         FROM proposition_livre pb
         JOIN proposition p
@@ -532,7 +532,7 @@ export async function creePropositionlivre(
   id_livres,
   quantites,
   titre_livres,
-  authorss,
+  authors,
   languages,
   lien_images
 ) {
@@ -540,18 +540,18 @@ export async function creePropositionlivre(
 
   for (let i = 0; i < id_livres.length; i++) {
     const resultat = await connexion.run(
-      `INSERT INTO proposition_livre (id_proposition, id_livre, quantite)
+      `INSERT INTO proposition_livre (id_proposition, id_livre, quantite, titre_livre, authors, language, lien_image)
       VALUES (?, ?, ?, ?, ?, ?, ?);`,
       [
         idProposition,
         id_livres[i],
         quantites[i],
         titre_livres[i],
-        authorss[i],
+        authors[i],
         languages[i],
         lien_images[i],
       ]
     );
   }
-  return resultat;
+  return idProposition;
 }

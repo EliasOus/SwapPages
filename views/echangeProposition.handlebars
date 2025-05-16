@@ -9,17 +9,17 @@
         <div class="livre-item">
           <div class="livre-image">
             <img
-              {{#if this.image}}
-              src="{{this.image}}"
+              {{#if this.lien_image}}
+              src="{{this.lien_image}}"
               {{else}}
               src="assets\imgs\pas_image.png"
               {{/if}}
-              alt="{{this.nom_livre}}"
+              alt="{{this.titre_livre}}"
             />
             <div class="langue"><span>{{this.language}}</span></div>
           </div>
           <div class="description-item">
-            <h1>{{this.nom_livre}}</h1>
+            <h1>{{this.titre_livre}}</h1>
             <h2>{{this.authors}}</h2>
             <h3>Quantite :  {{this.quantite}}</h3>
           </div>
