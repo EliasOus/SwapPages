@@ -624,7 +624,7 @@ app.post("/api/deconnexion", utilisateurConnecte, (request, response, next) => {
   });
 });
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 /**
  * Api pour recuperer tout les livre dans openlibrary
  */
@@ -655,9 +655,6 @@ app.get("/api/livres", async (request, response) => {
     }));
 
     response.status(200).json(livres);
-    // } else {
-    //   response.status(400).end();
-    // }
   } catch (error) {
     console.error(error);
     response
