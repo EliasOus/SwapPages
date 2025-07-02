@@ -4,6 +4,12 @@
 
 ---
 
+🔗 **Démo en ligne** : [https://swappages.onrender.com](https://swappages.onrender.com)
+
+🕒 **Note** : Le site peut prendre quelques secondes à démarrer car il est hébergé sur un serveur gratuit Render qui se met en veille automatiquement. Merci de patienter.
+
+
+
 ## 🚀 Fonctionnalités principales
 
 - 🔍 Visualiser la liste des échanges de livres disponibles  
